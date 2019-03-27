@@ -96,29 +96,29 @@
 		</dependency>
 		
 		
-		<!-- Implementacao do Bean Validation -->
+		<!-- Implementacao do Bean Validation 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.3.1.Final</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 
-		<!-- Implementação de EntityManager da JPA -->
+		<!-- Implementação de EntityManager da JPA 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.2.4.Final</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 
-		<!-- Pool de conexoes com C3P0 -->
+		<!-- Pool de conexoes com C3P0 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>5.2.4.Final</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 		
 		<!-- Weld depende do Jandex 
 		<dependency>
