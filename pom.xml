@@ -96,48 +96,47 @@
 		</dependency>
 		
 		
-		<!-- Implementacao do Bean Validation 
+		<!-- Implementacao do Bean Validation -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.3.1.Final</version>
 			<scope>compile</scope>
-		</dependency> -->
+		</dependency>
 
-		<!-- Implementação de EntityManager da JPA 
+		<!-- Implementação de EntityManager da JPA -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.2.4.Final</version>
 			<scope>compile</scope>
-		</dependency> -->
+		</dependency>
 
-		<!-- Pool de conexoes com C3P0 
+		<!-- Pool de conexoes com C3P0 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>5.2.4.Final</version>
 			<scope>compile</scope>
-		</dependency> -->
+		</dependency>
 		
-		<!-- Weld depende do Jandex 
+		<!-- Weld depende do Jandex -->
 		<dependency>
 			<groupId>org.jboss</groupId>
 			<artifactId>jandex</artifactId>
 			<version>1.2.2.Final</version>
 			<scope>compile</scope>
 		</dependency>
-		-->
 
-		<!-- OmniFaces (utilitarios para JSF) 
+		<!-- OmniFaces (utilitarios para JSF) -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
 			<artifactId>omnifaces</artifactId>
 			<version>2.5.1</version>
 			<scope>compile</scope>
-		</dependency>-->
+		</dependency>
 
-		<!-- Log4J 
+		<!-- Log4J -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -153,7 +152,6 @@
 			<artifactId>log4j-jcl</artifactId>
 			<version>2.7</version>
 		</dependency>
-		-->
 
 		<!-- Commons Logging (abstrai a implementação de logging) -->
 		<dependency>
