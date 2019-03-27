@@ -18,7 +18,20 @@
 	</properties>
 
 	<dependencies>
-		
+		<!-- Bibliotecas do Manhattan -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
@@ -83,6 +96,8 @@
 		</dependency>
 		
 		
+		
+
 		
 	</dependencies>
 
