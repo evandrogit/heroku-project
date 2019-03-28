@@ -2,36 +2,24 @@ package com.algaworks.hospedagem.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.TableGenerator;
+import javax.persistence.Table;
 
-//@Entity
-public class Jogador implements Serializable {
-	
+@Entity
+@Table(name = "grupo")
+public class Grupo implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, generator = "jogador")
-	@TableGenerator(name = "jogador")
 	private Long id;
-	
 	private String nome;
-	
-	private String email;
+	private String descricao;
 
-	public Jogador() {
-		
-	}
-	
-	public Jogador(Long id, String nome, String email) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-	}
-
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
@@ -39,21 +27,23 @@ public class Jogador implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	@Column(nullable=false, length=40)
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	@Column(nullable=false, length=80)
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override
@@ -61,7 +51,6 @@ public class Jogador implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -73,17 +62,13 @@ public class Jogador implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Jogador other = (Jogador) obj;
+		Grupo other = (Grupo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
 		return true;
 	}
+
 }
