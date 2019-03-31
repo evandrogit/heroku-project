@@ -12,7 +12,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-/*
+
 	@Bean
 	public AppUserDetailsService userDetailsService() {
 		return new AppUserDetailsService();
@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .userDetailsService(userDetailsService())
         .passwordEncoder(new BCryptPasswordEncoder());
 	}
-*/	
+/*	
 	@Override
 	public void configure(AuthenticationManagerBuilder builder) throws Exception {
 	    builder
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .withUser("tacito").password("123")
 	            .roles("USUARIOS");
 	}
-	
+*/	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		JsfLoginUrlAuthenticationEntryPoint jsfLoginEntry = new JsfLoginUrlAuthenticationEntryPoint();

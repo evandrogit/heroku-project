@@ -1,4 +1,4 @@
-package com.algaworks.hospedagem.model;
+package com.webapp.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
