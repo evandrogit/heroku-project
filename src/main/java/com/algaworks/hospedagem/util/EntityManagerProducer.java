@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
 
 @ApplicationScoped
 public class EntityManagerProducer {
@@ -17,15 +16,12 @@ public class EntityManagerProducer {
     @Inject
     private PersistenceProperties properties;
     
-    //private EntityManagerFactory factory;
+    private EntityManagerFactory factory;
 
-    //@PostConstruct
-    //public void postConstruct() {
-    //    this.factory = Persistence.createEntityManagerFactory("AlgaWorksPU"/*, properties.get()*/);
-    //}
-    
-    @PersistenceUnit(unitName = "AlgaWorksPU")
-    private EntityManagerFactory factory = Persistence.createEntityManagerFactory("AlgaWorksPU", properties.get());
+    @PostConstruct
+    public void postConstruct() {
+        this.factory = Persistence.createEntityManagerFactory("AlgaWorksPU", properties.get());
+    }
 
     @Produces
     @RequestScoped
