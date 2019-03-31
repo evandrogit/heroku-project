@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Dashboard</ui:define>
+
+	<f:metadata>
+		<!-- <f:viewAction action="#{dashboardBean.inicializar}" />  -->
+	</f:metadata>
+	
+	<ui:define name="content">
+
+		<div class="page-header">
+			<h1>Dashboard</h1>
+		</div>
+
+		<h:form>
+			<script type="text/javascript">
+				$(document).ready(function() {					
+					$.removeCookie('manhattan_expandeditems', {path: '/'});							
+					$(".pm_Dashboard").click();
+					//$('#menuform_pm_dashboard').addClass('active-menuitem');
+				});
+			</script>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
