@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/manhattan">
+
+	<style>
+.layout-wrapper .layout-sidebar .sidebar-logo img {
+	margin-left: 0;
+	height: 30px;
+}
+
+.layout-wrapper .layout-sidebar .sidebar-logo {
+	padding-top: 15px;
+}
+</style>
+
+	<div class="layout-sidebar">
+		<div class="sidebar-logo">
+			<a href="/Dashboard_.xhtml"> <p:graphicImage
+					name="images/SMTService.png" library="manhattan-layout" width="150"
+					height="120" style="margin-left: 10px" />
+			</a> <a href="#" class="sidebar-anchor animated fadeIn"
+				title="Toggle Menu"
+				style="float: right; margin-right: 13px; margin-top: 7px"> <i
+				class="fa"></i>
+			</a>
+		</div>
+
+		<div class="nano">
+			<div class="nano-content sidebar-scroll-content">
+				<div class="layout-menu-container">
+					<h:form id="menuform">
+						<pm:menu id="pm_menu">
+							<p:menuitem id="pm_Dashboard" styleClass="pm_Dashboard" value="Dashboard" icon="fa fa-home"
+								outcome="/Dashboard_.xhtml" />
+
+							<p:submenu id="pm_hierarchy1" label="Tools"
+								icon="fa fa-fw fa-gears">
+								<p:menuitem id="pm_Paciente" value="PartList Editor"
+									icon="fa fa-list-ol" outcome="/part-list/Generate"
+									rendered="#{seguranca.acessoPartList()}" />
+
+								<p:submenu id="pm_hierarchy1_2" label="Comparation"
+									icon="fa fa-chain"
+									rendered="#{seguranca.acessoBOMvsBOM() or seguranca.acessoMOvsBOM()}">
+
+									<p:menuitem id="pm_CompareBOMvsBOM" value="BOM vs BOM"
+										icon="fa fa-tasks" outcome="/compare/BOMvsBOM"
+										rendered="#{seguranca.acessoBOMvsBOM()}" />
+								</p:submenu>
+							</p:submenu>
+						</pm:menu>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</ui:composition>
