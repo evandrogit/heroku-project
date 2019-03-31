@@ -9,5 +9,22 @@
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
 	</application>
+	
+	
+	
+	<name>primefaces_manhattan</name>
+    
+    <component>
+        <component-type>org.primefaces.component.ManhattanMenu</component-type>
+        <component-class>org.primefaces.manhattan.component.ManhattanMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.ManhattanMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.manhattan.component.ManhattanMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 
 </faces-config>
