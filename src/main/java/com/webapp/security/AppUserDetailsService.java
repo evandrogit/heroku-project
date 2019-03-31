@@ -17,7 +17,7 @@ import com.webapp.model.Usuario;
 import com.webapp.repository.Usuarios;
 import com.webapp.util.cdi.CDIServiceLocator;
 
-//@Component
+@Component
 public class AppUserDetailsService implements UserDetailsService {
 
 	@Autowired
