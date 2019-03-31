@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().headers().frameOptions().sameOrigin().and()
 
 				.authorizeRequests().antMatchers("/Login_.xhtml", "/404_.xhtml", "/500_.xhtml", "/javax.faces.resource/**")
-				.permitAll().antMatchers("/403_.xhtml").authenticated().and()
+				.permitAll().antMatchers("/Dashboard_.xhtml", "/403_.xhtml").authenticated().and()
 
 				.formLogin().loginPage("/Login_.xhtml").failureUrl("/Login_.xhtml?invalid=true").and()
 
