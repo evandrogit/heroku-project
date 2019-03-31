@@ -37,7 +37,7 @@ public class LoginBean implements Serializable {
 	}
 	
 	public void acessar() throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.xhtml");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login_.xhtml");
 		dispatcher.forward(request, response);
 		
 		facesContext.responseComplete();
