@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 
-//@Entity
+@Entity
 public class Jogador implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
