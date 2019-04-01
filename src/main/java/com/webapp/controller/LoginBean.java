@@ -37,10 +37,18 @@ public class LoginBean implements Serializable {
 	}
 	
 	public void acessar() throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login_.xhtml");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/j_spring_security_check");
 		dispatcher.forward(request, response);
-		
+
 		facesContext.responseComplete();
 	}
+
+	public void sair() throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/j_spring_security_logout");
+		dispatcher.forward(request, response);
+
+		facesContext.responseComplete();
+	}
+
 	
 }
