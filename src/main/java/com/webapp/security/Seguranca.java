@@ -47,6 +47,7 @@ public class Seguranca {
 	
 	/* PART LIST */
 	public boolean acessoPartList() {
+		System.out.println(externalContext.isUserInRole("ADMINISTRADORES"));
 		return externalContext.isUserInRole("ADMINISTRADORES");
 	}
 
