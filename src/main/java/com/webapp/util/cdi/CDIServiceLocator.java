@@ -1,28 +1,21 @@
 package com.webapp.util.cdi;
-
 import java.util.Set;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.enterprise.inject.spi.CDI;
 
 public class CDIServiceLocator {
-	
+
 	private static BeanManager getBeanManager() {
-		try {
-			InitialContext initialContext = new InitialContext();
-			return (BeanManager) initialContext.lookup("java:comp/env/BeanManager");
-		} catch (NamingException e) {
-			throw new RuntimeException("Não pôde encontrar BeanManager no JNDI.");
-		}
+		return CDI.current().getBeanManager();
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> clazz) {
 		BeanManager bm = getBeanManager();
-		Set<Bean<?>> beans = (Set<Bean<?>>) bm.getBeans(clazz);
+		Set<Bean<?>> beans = bm.getBeans(clazz);
 
 		if (beans == null || beans.isEmpty()) {
 			return null;
