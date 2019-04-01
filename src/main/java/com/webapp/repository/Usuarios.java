@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import com.webapp.model.Usuario;
+import com.webapp.util.jpa.Transacional;
 
 public class Usuarios implements Serializable {
 
@@ -19,10 +20,12 @@ public class Usuarios implements Serializable {
 		return this.manager.find(Usuario.class, id);
 	}
 	
+	@Transacional
 	public Usuario save(Usuario usuario) {
 		return this.manager.merge(usuario);
 	}
 
+	@Transacional
 	public void remove(Usuario usuario) {
 		Usuario usuarioTemp = new Usuario();
 		usuarioTemp = this.manager.merge(usuario);

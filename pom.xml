@@ -3,13 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.algaworks</groupId>
-	<artifactId>videoaula-jsf-hospedagem</artifactId>
+	<groupId>com.webapp</groupId>
+	<artifactId>wep-application</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<packaging>war</packaging>
-
-	<name>videoaula-jsf-hospedagem</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
