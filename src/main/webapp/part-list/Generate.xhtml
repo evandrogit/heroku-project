@@ -5,5 +5,117 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	template="/WEB-INF/template.xhtml">
 
+	<ui:define name="title">Simular Operação</ui:define>
+
+
+	<ui:define name="content">
+
+		<div class="page-header">
+			<h1>Simular Operação</h1>
+		</div>
+
+
+		<h:form>
+
+			<div class="ui-g-12 ui-lg-6">
+				
+				<p:panel id="panel-JO" class="card card-w-title ui-fluid"
+					style="padding-bottom: 0px !important">
+					
+					<h3 style="font-weight: bold">Dados do Solicitante</h3>
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-6">
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" value="#{generateBean.jo.brandSummary}" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="CPF" for="cpf" />
+						<p:inputText id="cpf" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Contato" for="contato" />
+						<p:inputText id="contato" value="#{generateBean.jo.customer}" />
+
+					</p:panelGrid>
+					
+					<p:spacer />
+					
+					<h3 style="font-weight: bold">Dados do Empréstimo</h3>
+					
+					<p:panelGrid columns="2" layout="grid" 
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-3, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Data do empréstimo" for="data-emprestimo" />
+						<p:inputText id="data-emprestimo" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Valor do empréstimo" for="valor-emprestimo" />
+						<p:inputText id="valor-emprestimo" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-2, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Quantidade de parcelas" for="quantidade-parcelas" />
+						<p:inputText id="quantidade-parcelas" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-2, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Percentual de juros" for="percentual-juros" />
+						<p:inputText id="percentual-juros" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Valor da 1ª Parcela" for="primeira-parcela" />
+						<p:inputText id="primeira-parcela" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-3, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel value="Vencimento" for="vencimento" />
+						<p:inputText id="vencimento" value="#{generateBean.jo.model}" />
+					</p:panelGrid>
+					
+					<p:spacer />
+					
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+						<p:outputLabel />
+						<p:commandButton id="btn-calcular" value="Calcular" style="font-weight: bold; margin-bottom: 10px" />
+					</p:panelGrid>
+					
+				</p:panel>
+			</div>
+
+		</h:form>
+
+	</ui:define>
 	
 </ui:composition>
