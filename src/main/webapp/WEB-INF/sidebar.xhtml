@@ -19,8 +19,8 @@
 	<div class="layout-sidebar">
 		<div class="sidebar-logo">
 			<a href="/Dashboard_.xhtml"> <p:graphicImage
-					name="images/SMTService.png" library="manhattan-layout" width="150"
-					height="120" style="margin-left: 10px" />
+					name="images/smart-banking.png" library="manhattan-layout" width="150"
+					height="100" style="margin-left: 10px; margin-top: 5px; height: 20px; width: 160px;" />
 			</a> <a href="#" class="sidebar-anchor animated fadeIn"
 				title="Toggle Menu"
 				style="float: right; margin-right: 13px; margin-top: 7px"> <i
@@ -36,21 +36,8 @@
 							<p:menuitem id="pm_Dashboard" styleClass="pm_Dashboard" value="Dashboard" icon="fa fa-home"
 								outcome="/Dashboard_.xhtml" />
 
-							<p:submenu id="pm_hierarchy1" label="Tools"
-								icon="fa fa-fw fa-gears">
-								<p:menuitem id="pm_Paciente" value="PartList Editor"
-									icon="fa fa-list-ol" outcome="/part-list/Generate"
-									rendered="#{seguranca.acessoPartList()}" />
-
-								<p:submenu id="pm_hierarchy1_2" label="Comparation"
-									icon="fa fa-chain"
-									rendered="#{seguranca.acessoBOMvsBOM()}">
-
-									<p:menuitem id="pm_CompareBOMvsBOM" value="BOM vs BOM"
-										icon="fa fa-tasks" outcome="/compare/BOMvsBOM"
-										rendered="#{seguranca.acessoBOMvsBOM()}" />
-								</p:submenu>
-							</p:submenu>
+							<p:menuitem id="pm_simulacao" styleClass="pm_simulacao" value="Simular Operação" icon="fa fa-calculator"
+								outcome="/simulacao/simularOperacao.xhtml" />
 						</pm:menu>
 					</h:form>
 				</div>

@@ -1,0 +1,286 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">Simular Operação</ui:define>
+
+	<f:metadata>
+		<f:viewAction action="#{simularOperacaoBean.inicializar}" />
+	</f:metadata>
+
+	<ui:define name="content">
+
+		<style>
+@media ( min-width :220px) {
+	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
+		height: 28px !important;
+	}
+	.result .apply-result .ui-grid-responsive .ui-grid-col-4 {
+		width: 50% !important;
+		float: left !important;
+	}
+	.result .apply-result .ui-grid-responsive .ui-grid-col-6 {
+		width: 50% !important;
+		float: left !important;
+	}
+}
+
+@media ( min-width :460px) {
+	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
+		height: 27px !important;
+	}
+}
+
+@media ( min-width :640px) {
+	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
+		height: 27px !important;
+	}
+	.result .apply-result .ui-grid-responsive .ui-grid-col-4 {
+		width: 33.33333% !important;
+		float: none;
+	}
+	.result .apply-result .ui-grid-responsive .ui-grid-col-6 {
+		width: auto !important;
+		float: none;
+	}
+}
+</style>
+
+		<div class="page-header">
+			<h1>Simular Operação</h1>
+		</div>
+
+
+		<h:form>
+
+			<div class="ui-g-12 ui-lg-6">
+
+					<p:panel class="card card-w-title ui-fluid" rendered="true"
+						style="padding-bottom: 0px !important">
+
+
+						<h3 style="font-weight: bold">Dados do Solicitante</h3>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-2, ui-grid-col-6">
+
+							<p:outputLabel value="Nome" for="nome" />
+							<p:inputText id="nome" value="#{generateBean.jo.brandSummary}" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="CPF" for="cpf" />
+							<p:inputMask id="cpf" value="#{maskView.phone}"
+								mask="999.999.999-99" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="Contato" for="contato" />
+							<p:inputMask id="contato" value="#{maskView.phone}"
+								mask="(99) 9-9999-9999" />
+
+						</p:panelGrid>
+
+						<p:spacer />
+
+						<h3 style="font-weight: bold">Dados do Empréstimo</h3>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-3, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="Data do empréstimo" for="data-emprestimo" />
+							<p:calendar id="data-emprestimo" value="#{calendarView.date3}"
+								showOn="button" pattern="dd/MM/yyyy" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="Valor do empréstimo" for="valor-emprestimo" />
+							<p:inputNumber id="valor-emprestimo"
+								value="#{inputNumberView.input8}" decimalPlaces="2" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-4">
+
+							<p:outputLabel value="Quantidade de parcelas" />
+							<p:panel style="text-align: center">
+								<h:outputText id="output"
+									value="#{balanceBean.configBalance.percentual}"
+									style="font-weight: bold; font-size: 14px" />
+								<h:inputHidden id="txt2"
+									value="#{balanceBean.configBalance.percentual}" />
+								<p:slider for="txt2" display="output" displayTemplate="{value}"
+									minValue="1" maxValue="20" />
+							</p:panel>
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-4">
+
+							<p:outputLabel value="Percentual de juros (%)" />
+							<p:panel style="text-align: center">
+								<h:outputText id="output3"
+									value="%#{balanceBean.configBalance.percentual}"
+									style="font-weight: bold; font-size: 14px" />
+								<h:inputHidden id="txt3"
+									value="#{balanceBean.configBalance.percentual}" />
+								<p:slider for="txt3" display="output3"
+									displayTemplate="%{value}" minValue="1" maxValue="30" />
+							</p:panel>
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="Valor da 1ª Parcela" for="primeira-parcela" />
+							<p:inputNumber id="primeira-parcela"
+								value="#{inputNumberView.input8}" decimalPlaces="2" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-3, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel value="Vencimento" for="vencimento" />
+							<p:calendar id="vencimento" value="#{calendarView.date3}"
+								showOn="button" pattern="dd/MM/yyyy" />
+						</p:panelGrid>
+
+						<p:spacer />
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+							<p:outputLabel />
+							<p:commandButton id="btn-calcular" value="Calcular" disabled="true"
+								style="font-weight: bold; margin-bottom: 10px" />
+						</p:panelGrid>
+
+					</p:panel>
+
+
+					<p:panel class="card card-w-title ui-fluid" styleClass="result"
+						style="padding-bottom: 0px !important" rendered="false">
+
+						<h3 style="font-weight: bold">Dados do Solicitante</h3>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled apply-result"
+							columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+							<p:outputLabel value="Nome:" />
+							<p:outputLabel value="Evandro Silva" style="font-weight: bold" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled apply-result"
+							columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+							<p:outputLabel value="CPF:" />
+							<p:outputLabel value="959.267.472-87" style="font-weight: bold" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="panelgrid-noborder disabled disabled apply-result"
+							columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+							<p:outputLabel value="Contato:" />
+							<p:outputLabel value="9-9113-5627" style="font-weight: bold" />
+
+						</p:panelGrid>
+
+						<p:spacer />
+
+						<h3 style="font-weight: bold">Dados do Empréstimo</h3>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled apply-result"
+							columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+							<p:outputLabel value="Data do empréstimo:" />
+							<p:outputLabel value="23/02/2019" style="font-weight: bold" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+							styleClass="panelgrid-noborder disabled disabled apply-result"
+							columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+							<p:outputLabel value="Valor do empréstimo:" />
+							<p:outputLabel value="1.500,50" style="font-weight: bold" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
+							styleClass="panelgrid-noborder disabled disabled apply-result"
+							columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+							<p:outputLabel value="Quantidade de parcelas:" />
+							<p:outputLabel value="5" style="font-weight: bold" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-7, ui-grid-col-3">
+
+							<p:outputLabel />
+							<p:dataTable id="tblFail" var="firstScanner"
+								value="#{dashboardBean.firstScanners}" style="margin-top: 20px"
+								emptyMessage="No records found." rows="2000">
+
+								<p:column headerText="Data" style="text-align: center">
+									<h:outputText value="#{firstScanner.dataCriacao}">
+										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Valor" style="text-align: center">
+									<h:outputText value="#{firstScanner.dataCriacao}">
+										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Vencimento" style="text-align: center">
+									<h:outputText value="#{firstScanner.dataCriacao}">
+										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+									</h:outputText>
+								</p:column>
+							</p:dataTable>
+						</p:panelGrid>
+
+
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="panelgrid-noborder disabled disabled"
+							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4">
+
+							<p:outputLabel />
+							<p:commandButton id="btn-recalcular" value="Recalcular" 
+								style="width: 100% !important; font-weight: bold; margin-top: 30px; margin-bottom: 15px" />
+						</p:panelGrid>
+
+					</p:panel>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
