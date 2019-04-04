@@ -5,11 +5,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
 	template="/WEB-INF/template.xhtml">
 
-	<ui:define name="title">Simular Operação</ui:define>
-
-	<f:metadata>
-		<f:viewAction action="#{simularOperacaoBean.inicializar}" />
-	</f:metadata>
+	<ui:define name="title">#{simularOperacaoBean.result ? 'Resultado' : 'Simular Operação' }</ui:define>
 
 	<ui:define name="content">
 
@@ -26,11 +22,39 @@
 		width: 50% !important;
 		float: left !important;
 	}
+	.qty-parcelas.ui-panelgrid .ui-panelgrid-cell:nth-child(1) {
+		margin-top: 10px !important;
+	}
+	.percentual-juros.ui-panelgrid .ui-panelgrid-cell:nth-child(1) {
+		margin-top: 8px !important;
+	}
+	.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+		.ui-datatable tfoot th {
+		font-size: 13px;
+	}
+	body .btn-new.ui-button {
+		color: #676363;
+		background-color: #f9f9f9;
+		border: 1px solid #8a8585;
+	}
+	.swal2-popup {
+		width: 28em;
+	    max-width: 100%;
+	    padding: 0 0 0.4em 0;
+	    font-size: 0.75rem;
+	}
+	.swal2-popup #swal2-content {
+	    font-weight: 400;
+	}
 }
 
 @media ( min-width :460px) {
 	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
 		height: 27px !important;
+	}
+	.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+		.ui-datatable tfoot th {
+		font-size: 14px;
 	}
 }
 
@@ -50,236 +74,311 @@
 </style>
 
 		<div class="page-header">
-			<h1>Simular Operação</h1>
+			<h1>#{simularOperacaoBean.result ? 'Resultado' : 'Simular
+				Operação' }</h1>
 		</div>
 
+		<p:growl id="msg" closable="true" life="500" showSummary="false"
+			showDetail="true" style="text-align: center" />
 
-		<h:form>
+		<div class="ui-g-12 ui-lg-12">
 
-			<div class="ui-g-12 ui-lg-6">
+			<h:form id="simulacao">
 
-					<p:panel class="card card-w-title ui-fluid" rendered="true"
-						style="padding-bottom: 0px !important">
+				<p:defaultCommand target="btn-calcular" />
+
+				<p:panel class="card card-w-title ui-fluid"
+					rendered="#{simularOperacaoBean.result ? 'false' : 'true' }"
+					style="margin-top: -10px; padding-bottom: 0px !important">
+
+					<h3 style="font-weight: bold">Dados do Solicitante</h3>
+
+					<p:commandButton styleClass="btn-new"
+						icon="fa fa-fw fa-file-text-o" title="Nova simulação"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+						action="#{simularOperacaoBean.novaSimulacao}" process="@this"
+						style="position: relative; float: right; margin-top: -45px; margin-right: 8px; width: 40px" />
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome"
+							value="#{simularOperacaoBean.simulacao.nome}" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-2">
+
+						<p:outputLabel value="CPF" for="cpf" />
+						<p:inputMask id="cpf" value="#{simularOperacaoBean.simulacao.cpf}"
+							mask="999.999.999-99" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-2">
+
+						<p:outputLabel value="Contato" for="contato" />
+						<p:inputMask id="contato"
+							value="#{simularOperacaoBean.simulacao.contato}"
+							mask="(99) 9-9999-9999" />
+
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<h3 style="font-weight: bold">Dados do Empréstimo</h3>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Data do empréstimo" for="data-emprestimo" />
+						<p:calendar id="data-emprestimo"
+							value="#{simularOperacaoBean.simulacao.dataEmprestimo}"
+							showOn="button" pattern="dd/MM/yyyy" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Valor do empréstimo" for="valor-emprestimo" />
+						<p:inputNumber id="valor-emprestimo" decimalSeparator=","
+							thousandSeparator="."
+							value="#{simularOperacaoBean.simulacao.valorEmprestimo}"
+							decimalPlaces="2" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
+						styleClass="panelgrid-noborder disabled disabled qty-parcelas"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Quantidade de parcelas" />
+						<p:panel style="text-align: center">
+							<h:outputText id="parcelas"
+								value="#{simularOperacaoBean.simulacao.quantidadeParcelas}"
+								style="font-weight: bold; font-size: 14px" />
+							<h:inputHidden id="qty-parcelas"
+								value="#{simularOperacaoBean.simulacao.quantidadeParcelas}" />
+							<p:slider for="qty-parcelas" display="parcelas"
+								displayTemplate="{value}" minValue="1" maxValue="20" />
+						</p:panel>
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
+						styleClass="panelgrid-noborder disabled disabled percentual-juros"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Percentual de juros (%)" />
+						<p:panel style="text-align: center">
+							<h:outputText id="percentual"
+								value="%#{simularOperacaoBean.simulacao.percentualJuros}"
+								style="font-weight: bold; font-size: 14px" />
+							<h:inputHidden id="percentual-juros"
+								value="#{simularOperacaoBean.simulacao.percentualJuros}" />
+							<p:slider for="percentual-juros" display="percentual"
+								displayTemplate="%{value}" minValue="1" maxValue="30" />
+						</p:panel>
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Valor da 1ª Parcela" for="primeira-parcela" />
+						<p:inputNumber id="primeira-parcela" decimalSeparator=","
+							thousandSeparator="."
+							value="#{simularOperacaoBean.simulacao.primeiraParcela}"
+							decimalPlaces="2" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel value="Vencimento" for="vencimento" />
+						<p:calendar id="vencimento"
+							value="#{simularOperacaoBean.simulacao.dataVencimento}"
+							showOn="button" pattern="dd/MM/yyyy" />
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-2, ui-grid-col-3">
+
+						<p:outputLabel />
+						<p:commandButton id="btn-calcular" value="Calcular"
+							oncomplete="if (!args.validationFailed) PrimeFaces.monitorDownload(start, stop);"
+							update="msg simulacao" action="#{simularOperacaoBean.calcular}"
+							process="@this simulacao"
+							style="font-weight: bold; margin-bottom: 10px" />
+					</p:panelGrid>
+
+				</p:panel>
+			</h:form>
+
+			<h:form rendered="#{simularOperacaoBean.result ? 'true' : 'false' }">
+
+				<p:defaultCommand target="btn-recalcular" />
+
+				<p:panel class="card card-w-title ui-fluid" styleClass="result"
+					style="margin-top: -10px; padding-bottom: 0px !important">
+
+					<h3 style="font-weight: bold">Dados do Solicitante</h3>
+
+					<p:commandButton styleClass="btn-new"
+						icon="fa fa-fw fa-file-text-o" title="Nova simulação"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+						action="#{simularOperacaoBean.novaSimulacao}" process="@this"
+						style="position: relative; float: right; margin-top: -45px; margin-right: 8px; width: 40px" />
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled apply-result"
+						columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+						<p:outputLabel value="Nome:" />
+						<p:outputLabel value="#{simularOperacaoBean.simulacao.nome}"
+							style="font-weight: bold" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled apply-result"
+						columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+						<p:outputLabel value="CPF:" />
+						<p:outputLabel value="#{simularOperacaoBean.simulacao.cpf}"
+							style="font-weight: bold" />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled apply-result"
+						columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+						<p:outputLabel value="Contato:" />
+						<p:outputLabel value="#{simularOperacaoBean.simulacao.contato}"
+							style="font-weight: bold" />
+
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<h3 style="font-weight: bold">Dados do Empréstimo</h3>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled apply-result"
+						columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+						<p:outputLabel value="Data do empréstimo:" />
+						<p:outputLabel
+							value="#{simularOperacaoBean.simulacao.dataEmprestimo}"
+							style="font-weight: bold">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-4" />
+						</p:outputLabel>
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
+						styleClass="panelgrid-noborder disabled disabled apply-result"
+						columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+						<p:outputLabel value="Valor do empréstimo:" />
+						<p:outputLabel 
+							value="R$ #{simularOperacaoBean.valorEmprestado}"
+							style="font-weight: bold">
+							<f:convertNumber type="currency" />
+						</p:outputLabel>
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
+						styleClass="panelgrid-noborder disabled disabled apply-result"
+						columnClasses="ui-grid-col-4, ui-grid-col-6">
+
+						<p:outputLabel value="Quantidade de parcelas:" />
+						<p:outputLabel
+							value="#{simularOperacaoBean.simulacao.quantidadeParcelas}"
+							style="font-weight: bold"/>
+							
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-7, ui-grid-col-3">
+
+						<p:outputLabel />
+						<p:dataTable id="tblParcelas" var="firstScanner"
+							value="#{dashboardBean.firstScanners}" style="margin-top: 20px"
+							emptyMessage="No records found." rows="2000">
+
+							<p:column headerText="Data" style="text-align: center">
+								<h:outputText value="#{firstScanner.dataCriacao}">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Valor" style="text-align: center">
+								<h:outputText value="#{firstScanner.dataCriacao}">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Vencimento" style="text-align: center">
+								<h:outputText value="#{firstScanner.dataCriacao}">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					</p:panelGrid>
 
 
-						<h3 style="font-weight: bold">Dados do Solicitante</h3>
 
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-2, ui-grid-col-6">
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder disabled disabled"
+						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4">
 
-							<p:outputLabel value="Nome" for="nome" />
-							<p:inputText id="nome" value="#{generateBean.jo.brandSummary}" />
-						</p:panelGrid>
+						<p:outputLabel />
+						<p:commandButton id="btn-recalcular" value="Recalcular"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							process="@this" action="#{simularOperacaoBean.recalcular}"
+							style="width: 100% !important; font-weight: bold; margin-top: 30px; margin-bottom: 15px" />
+					</p:panelGrid>
 
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+				</p:panel>
 
-							<p:outputLabel value="CPF" for="cpf" />
-							<p:inputMask id="cpf" value="#{maskView.phone}"
-								mask="999.999.999-99" />
-						</p:panelGrid>
+				<script type="text/javascript">
+					$(document).ready(function() {
+						swal({
+							position : 'center',
+							type : 'success',
+							text : 'Simulação realizada com sucesso.',
+							title : 'Concluído!',
+							showConfirmButton : true,
+						})
+					});
+				</script>
+			</h:form>
+		</div>
 
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+		<p:dialog id="downloadLoading" showHeader="false" modal="true"
+			widgetVar="downloadLoading" header="Status" draggable="false"
+			closable="false" resizable="false">
+			<p:graphicImage name="images/loadingbar.gif"
+				library="manhattan-layout" width="50" />
+		</p:dialog>
 
-							<p:outputLabel value="Contato" for="contato" />
-							<p:inputMask id="contato" value="#{maskView.phone}"
-								mask="(99) 9-9999-9999" />
+		<script type="text/javascript">
+			function start() {
+				PF('downloadLoading').show();
+			}
 
-						</p:panelGrid>
-
-						<p:spacer />
-
-						<h3 style="font-weight: bold">Dados do Empréstimo</h3>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-3, ui-grid-col-2, ui-grid-col-4">
-
-							<p:outputLabel value="Data do empréstimo" for="data-emprestimo" />
-							<p:calendar id="data-emprestimo" value="#{calendarView.date3}"
-								showOn="button" pattern="dd/MM/yyyy" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
-
-							<p:outputLabel value="Valor do empréstimo" for="valor-emprestimo" />
-							<p:inputNumber id="valor-emprestimo"
-								value="#{inputNumberView.input8}" decimalPlaces="2" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-4">
-
-							<p:outputLabel value="Quantidade de parcelas" />
-							<p:panel style="text-align: center">
-								<h:outputText id="output"
-									value="#{balanceBean.configBalance.percentual}"
-									style="font-weight: bold; font-size: 14px" />
-								<h:inputHidden id="txt2"
-									value="#{balanceBean.configBalance.percentual}" />
-								<p:slider for="txt2" display="output" displayTemplate="{value}"
-									minValue="1" maxValue="20" />
-							</p:panel>
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-4">
-
-							<p:outputLabel value="Percentual de juros (%)" />
-							<p:panel style="text-align: center">
-								<h:outputText id="output3"
-									value="%#{balanceBean.configBalance.percentual}"
-									style="font-weight: bold; font-size: 14px" />
-								<h:inputHidden id="txt3"
-									value="#{balanceBean.configBalance.percentual}" />
-								<p:slider for="txt3" display="output3"
-									displayTemplate="%{value}" minValue="1" maxValue="30" />
-							</p:panel>
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
-
-							<p:outputLabel value="Valor da 1ª Parcela" for="primeira-parcela" />
-							<p:inputNumber id="primeira-parcela"
-								value="#{inputNumberView.input8}" decimalPlaces="2" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-3, ui-grid-col-2, ui-grid-col-4">
-
-							<p:outputLabel value="Vencimento" for="vencimento" />
-							<p:calendar id="vencimento" value="#{calendarView.date3}"
-								showOn="button" pattern="dd/MM/yyyy" />
-						</p:panelGrid>
-
-						<p:spacer />
-
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
-
-							<p:outputLabel />
-							<p:commandButton id="btn-calcular" value="Calcular" disabled="true"
-								style="font-weight: bold; margin-bottom: 10px" />
-						</p:panelGrid>
-
-					</p:panel>
-
-
-					<p:panel class="card card-w-title ui-fluid" styleClass="result"
-						style="padding-bottom: 0px !important" rendered="false">
-
-						<h3 style="font-weight: bold">Dados do Solicitante</h3>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled apply-result"
-							columnClasses="ui-grid-col-4, ui-grid-col-6">
-
-							<p:outputLabel value="Nome:" />
-							<p:outputLabel value="Evandro Silva" style="font-weight: bold" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled apply-result"
-							columnClasses="ui-grid-col-4, ui-grid-col-6">
-
-							<p:outputLabel value="CPF:" />
-							<p:outputLabel value="959.267.472-87" style="font-weight: bold" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="panelgrid-noborder disabled disabled apply-result"
-							columnClasses="ui-grid-col-4, ui-grid-col-6">
-
-							<p:outputLabel value="Contato:" />
-							<p:outputLabel value="9-9113-5627" style="font-weight: bold" />
-
-						</p:panelGrid>
-
-						<p:spacer />
-
-						<h3 style="font-weight: bold">Dados do Empréstimo</h3>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled apply-result"
-							columnClasses="ui-grid-col-4, ui-grid-col-6">
-
-							<p:outputLabel value="Data do empréstimo:" />
-							<p:outputLabel value="23/02/2019" style="font-weight: bold" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
-							styleClass="panelgrid-noborder disabled disabled apply-result"
-							columnClasses="ui-grid-col-4, ui-grid-col-6">
-
-							<p:outputLabel value="Valor do empréstimo:" />
-							<p:outputLabel value="1.500,50" style="font-weight: bold" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid" style="margin-bottom: 10px"
-							styleClass="panelgrid-noborder disabled disabled apply-result"
-							columnClasses="ui-grid-col-4, ui-grid-col-6">
-
-							<p:outputLabel value="Quantidade de parcelas:" />
-							<p:outputLabel value="5" style="font-weight: bold" />
-						</p:panelGrid>
-
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-7, ui-grid-col-3">
-
-							<p:outputLabel />
-							<p:dataTable id="tblFail" var="firstScanner"
-								value="#{dashboardBean.firstScanners}" style="margin-top: 20px"
-								emptyMessage="No records found." rows="2000">
-
-								<p:column headerText="Data" style="text-align: center">
-									<h:outputText value="#{firstScanner.dataCriacao}">
-										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
-									</h:outputText>
-								</p:column>
-
-								<p:column headerText="Valor" style="text-align: center">
-									<h:outputText value="#{firstScanner.dataCriacao}">
-										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
-									</h:outputText>
-								</p:column>
-
-								<p:column headerText="Vencimento" style="text-align: center">
-									<h:outputText value="#{firstScanner.dataCriacao}">
-										<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
-									</h:outputText>
-								</p:column>
-							</p:dataTable>
-						</p:panelGrid>
-
-
-
-						<p:panelGrid columns="2" layout="grid"
-							styleClass="panelgrid-noborder disabled disabled"
-							columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4">
-
-							<p:outputLabel />
-							<p:commandButton id="btn-recalcular" value="Recalcular" 
-								style="width: 100% !important; font-weight: bold; margin-top: 30px; margin-bottom: 15px" />
-						</p:panelGrid>
-
-					</p:panel>
-
-			</div>
-
-		</h:form>
+			function stop() {
+				PF('downloadLoading').hide();
+			}
+		</script>
 
 	</ui:define>
 

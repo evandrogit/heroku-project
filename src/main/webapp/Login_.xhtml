@@ -21,6 +21,30 @@
 	<title>Login</title>
 
 </h:head>
+<style>
+@media ( min-width :220px) {
+	.login-body .logo {
+	    margin-top: 80px;
+	}
+	.login-panel {
+		margin-top: -25px !important;
+	}
+	.username {
+		margin-top: -25px !important;
+	}
+}
+@media ( min-width :460px) {
+	.login-body .logo {
+	    margin-top: 100px;
+	}
+	.login-panel {
+		margin-top: -180px !important;
+	}	
+	.username {
+		margin-top: -15px !important;
+	}
+}
+</style>
 
 <h:body styleClass="login-body">
 
@@ -30,7 +54,7 @@
 		<p:focus for="j_username" />
 		<div class="ui-g">
 			<div class="ui-g-12" style="text-align: center">
-				<p:graphicImage name="images/logo-manhattan.png"
+				<p:graphicImage name="images/smart-banking.png" height="30"
 					library="manhattan-layout" styleClass="logo" />
 			</div>
 		</div>
@@ -39,12 +63,12 @@
 				<div class="ui-g-6 left-side">
 					
 				</div>
-				<div class="ui-g-6 ui-sm-12 right-side">
+				<div class="ui-g-6 ui-sm-12">
 					<div class="ui-g-12 container">
 						<h3>Bem vindo!</h3>
 						<h2>Acesso ao Smart Banking</h2>
 					</div>
-					<div class="ui-g-12">
+					<div class="ui-g-12 username">
 						<p:outputLabel for="j_username" value="Usuário" />
 						<div class="input-wrapper">
 							<p:inputText id="j_username" placeholder="Usuário" 
