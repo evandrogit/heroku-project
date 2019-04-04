@@ -3,7 +3,9 @@ package com.webapp.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -19,9 +21,13 @@ public class SimularOperacaoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private boolean result = false;
+	
+	private static final Locale BRAZIL = new Locale("pt","BR");
+	
+	private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL); 
 
-	private NumberFormat nf = new DecimalFormat("###.##0,00");
-
+	private NumberFormat nf = new DecimalFormat("###,##0.00", REAL);
+	  
 	private String valorEmprestado;
 
 	@Inject
