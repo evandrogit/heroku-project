@@ -20,7 +20,7 @@ public class SimularOperacaoBean implements Serializable {
 
 	private boolean result = false;
 
-	private NumberFormat nf = new DecimalFormat("###,##0.00");
+	private NumberFormat nf = new DecimalFormat("###.##0,00");
 
 	private String valorEmprestado;
 
