@@ -16,15 +16,16 @@
 }
 
 .layout-wrapper .layout-sidebar .sidebar-logo .sidebar-anchor {
-    margin-left: 0px;
+	margin-left: 0px;
 }
 </style>
 
 	<div class="layout-sidebar">
 		<div class="sidebar-logo">
 			<a href="/Dashboard_.xhtml"> <p:graphicImage
-					name="images/smart-banking.png" library="manhattan-layout" width="150"
-					height="100" style="margin-left: 10px; margin-top: 5px; height: 20px; width: 160px;" />
+					name="images/smart-banking.png" library="manhattan-layout"
+					width="150" height="100"
+					style="margin-left: 10px; margin-top: 5px; height: 20px; width: 160px;" />
 			</a> <a href="#" class="sidebar-anchor animated fadeIn"
 				title="Toggle Menu"
 				style="float: right; margin-right: 13px; margin-top: 7px"> <i
@@ -37,11 +38,21 @@
 				<div class="layout-menu-container">
 					<h:form id="menuform">
 						<pm:menu id="pm_menu">
-							<p:menuitem id="pm_Dashboard" styleClass="pm_Dashboard" value="Dashboard" icon="fa fa-home"
-								outcome="/Dashboard_.xhtml" />
+							<p:menuitem id="pm_Dashboard" styleClass="pm_Dashboard"
+								value="Dashboard" icon="fa fa-home" outcome="/Dashboard_.xhtml" />
 
-							<p:menuitem id="pm_simulacao" styleClass="pm_simulacao" value="Simular Operação" icon="fa fa-calculator"
+							<p:menuitem id="pm_simulacao" styleClass="pm_simulacao"
+								value="Simular Operação" icon="fa fa-calculator"
 								outcome="/simulacao/simularOperacao.xhtml" />
+
+							<p:menuitem id="pm_emprestimo" styleClass="pm_emprestimo"
+								value="Empréstimo" icon="fa fa-folder-open-o" />
+
+							<p:menuitem id="pm_deposito" styleClass="pm_deposito"
+								value="Depósito" icon="fa fa-money" />
+
+							<p:menuitem id="pm_despesa" styleClass="pm_despesa"
+								value="Despesas" icon="fa fa-list-ol" />
 						</pm:menu>
 					</h:form>
 				</div>
