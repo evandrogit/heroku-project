@@ -48,11 +48,32 @@
 							<p:menuitem id="pm_emprestimo" styleClass="pm_emprestimo"
 								value="Empréstimo" icon="fa fa-folder-open-o" />
 
-							<p:menuitem id="pm_deposito" styleClass="pm_deposito"
-								value="Depósito" icon="fa fa-money" />
 
-							<p:menuitem id="pm_despesa" styleClass="pm_despesa"
-								value="Despesas" icon="fa fa-list-ol" />
+							<p:submenu id="pm_cadastro" label="Cadastro"
+								icon="fa fa-database">
+								<p:menuitem id="pm_cliente" value="Clientes"
+									icon="fa fa-user-plus" />
+
+								<p:menuitem id="pm_investidor" value="Investidores"
+									icon="fa fa-user-secret" />
+							</p:submenu>
+							
+							<p:submenu id="pm_buscar" label="Pesquisar" icon="fa fa-search">
+
+								<p:menuitem id="pm_emprestimos" styleClass="pm_emprestimos"
+								value="Empréstimos" icon="fa fa-files-o" />
+							</p:submenu>
+
+							<p:submenu id="pm_lancamento" label="Lançamentos"
+								icon="fa fa-retweet">
+								<p:menuitem id="pm_deposito" styleClass="pm_deposito"
+									value="Depósitos" icon="fa fa-money" />
+
+								<p:menuitem id="pm_despesa" styleClass="pm_despesa"
+									value="Despesas" icon="fa fa-list-ol" />
+							</p:submenu>
+
+
 						</pm:menu>
 					</h:form>
 				</div>

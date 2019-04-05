@@ -10,7 +10,17 @@
 	<ui:define name="content">
 
 		<style>
+	
 @media ( min-width :220px) {
+	
+	.ui-slider .ui-slider-handle {
+		width: 1.7em;
+		height: 1.7em;
+	}
+	.ui-slider-horizontal {
+		height: 1.2em !important;
+	}
+	
 	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
 		height: 28px !important;
 	}
@@ -49,16 +59,34 @@
 }
 
 @media ( min-width :460px) {
+	
+	.ui-slider .ui-slider-handle {
+		width: 1.7em;
+		height: 1.7em;
+	}
+	.ui-slider-horizontal {
+		height: 1.2em;
+	}
+	
 	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
 		height: 27px !important;
 	}
 	.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
 		.ui-datatable tfoot th {
 		font-size: 14px;
-	}
+	}	
 }
 
 @media ( min-width :640px) {
+	
+	.ui-slider-handle {
+		width: 1.2em !important;
+		height: 1.2em !important;
+	}
+	.ui-slider-horizontal {
+		height: 0.8em !important;
+	}
+	
 	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
 		height: 27px !important;
 	}
@@ -161,7 +189,7 @@
 						<p:panel style="text-align: center">
 							<h:outputText id="parcelas"
 								value="#{simularOperacaoBean.simulacao.quantidadeParcelas}"
-								style="font-weight: bold; font-size: 14px" />
+								style="font-weight: bold; font-size: 18px" />
 							<h:inputHidden id="qty-parcelas"
 								value="#{simularOperacaoBean.simulacao.quantidadeParcelas}" />
 							<p:slider for="qty-parcelas" display="parcelas"
@@ -177,7 +205,7 @@
 						<p:panel style="text-align: center">
 							<h:outputText id="percentual"
 								value="%#{simularOperacaoBean.simulacao.percentualJuros}"
-								style="font-weight: bold; font-size: 14px" />
+								style="font-weight: bold; font-size: 18px" />
 							<h:inputHidden id="percentual-juros"
 								value="#{simularOperacaoBean.simulacao.percentualJuros}" />
 							<p:slider for="percentual-juros" display="percentual"
