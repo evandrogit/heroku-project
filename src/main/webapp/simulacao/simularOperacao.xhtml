@@ -310,25 +310,23 @@
 						columnClasses="ui-grid-col-4, ui-grid-col-7, ui-grid-col-3">
 
 						<p:outputLabel />
-						<p:dataTable id="tblParcelas" var="firstScanner"
-							value="#{dashboardBean.firstScanners}" style="margin-top: 20px"
+						<p:dataTable id="tblParcelas" var="parcela"
+							value="#{simularOperacaoBean.parcelas}" style="margin-top: 20px"
 							emptyMessage="No records found." rows="2000">
 
 							<p:column headerText="Data" style="text-align: center">
-								<h:outputText value="#{firstScanner.dataCriacao}">
-									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
-								</h:outputText>
+								<h:outputText value="#{parcela.parcela}"/>
 							</p:column>
 
 							<p:column headerText="Valor" style="text-align: center">
-								<h:outputText value="#{firstScanner.dataCriacao}">
-									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+								<h:outputText value="R$ #{parcela.valorParcela}">
+									<f:convertNumber pattern="###,##0" />
 								</h:outputText>
 							</p:column>
 
 							<p:column headerText="Vencimento" style="text-align: center">
-								<h:outputText value="#{firstScanner.dataCriacao}">
-									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="GMT-4" />
+								<h:outputText value="#{parcela.vencimentoParcela}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-4" />
 								</h:outputText>
 							</p:column>
 						</p:dataTable>

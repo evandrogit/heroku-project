@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.webapp.model.Parcelas;
 import com.webapp.model.Simulacao;
 
 @Named
@@ -21,24 +25,163 @@ public class SimularOperacaoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private boolean result = false;
-	
-	private static final Locale BRAZIL = new Locale("pt","BR");
-	
-	private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL); 
+
+	private static final Locale BRAZIL = new Locale("pt", "BR");
+
+	private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);
 
 	private NumberFormat nf = new DecimalFormat("###,##0.00", REAL);
-	  
-	private String valorEmprestado;
 
 	@Inject
 	private Simulacao simulacao;
 
+	private String valorEmprestado;
+
+	private Parcelas parcela;
+
+	private List<Parcelas> parcelas = new ArrayList<Parcelas>();
+
 	public void calcular() {
+
 		try {
 			result = true;
 			valorEmprestado = nf.format(Double.parseDouble(simulacao.getValorEmprestimo()));
+
+			parcelas = new ArrayList<Parcelas>();
+
+			double juros = (((double) simulacao.getPercentualJuros()) / 100) + 1;
+			double emprestimoComJuros = Double.parseDouble(simulacao.getValorEmprestimo()) * juros;
+
+			boolean ultimaParcela = true;
+			boolean loop = true;
+			int numParcela = 0;
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(simulacao.getDataVencimento());
+			int dia = calendar.get(Calendar.DAY_OF_MONTH);
+
+			if (simulacao.getQuantidadeParcelas() > 1) {
+
+				for (int i = 1; i <= simulacao.getQuantidadeParcelas(); i++) {
+					// $scope.mydate.setDate($scope.mydate.getDate() + numberOfDaysToAdd);
+
+					if (loop == true) {
+
+						if (Double.parseDouble(valorEmprestado.replace(".", "").replace(",", ".")) * juros > Double
+								.parseDouble(simulacao.getPrimeiraParcela())) {
+
+							if (i == 1) {
+								emprestimoComJuros = (emprestimoComJuros
+										- Double.parseDouble(simulacao.getPrimeiraParcela()));
+
+								parcela = new Parcelas();
+								parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
+								parcela.setValorParcela(nf.format(Double.parseDouble(simulacao.getPrimeiraParcela().replace(".", "").replace(",", "."))));
+								parcela.setVencimentoParcela(simulacao.getDataVencimento());
+
+								parcelas.add(parcela);
+
+								numParcela = i;
+
+							} else {
+
+								calendar.add(Calendar.MONTH, 1);
+								int numDias = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+								/* Tratamento para os dias 29, 30 e 31 */
+								if (dia > numDias) {
+									calendar.set(Calendar.DAY_OF_MONTH, numDias);
+								} else {
+									calendar.set(Calendar.DAY_OF_MONTH, dia);
+								}
+
+								if ((emprestimoComJuros * juros)
+										- Double.parseDouble(simulacao.getPrimeiraParcela()) > 0) {
+
+									if (i == simulacao.getQuantidadeParcelas()) {
+
+										emprestimoComJuros = (emprestimoComJuros * juros);
+
+										parcela = new Parcelas();
+										parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
+										parcela.setValorParcela(nf.format(emprestimoComJuros));
+										parcela.setVencimentoParcela(calendar.getTime());
+
+										parcelas.add(parcela);
+
+										numParcela = i;
+
+									} else {
+
+										emprestimoComJuros = (emprestimoComJuros * juros)
+												- Double.parseDouble(simulacao.getPrimeiraParcela());
+
+										parcela = new Parcelas();
+										parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
+										parcela.setValorParcela(nf.format(Double.parseDouble(simulacao.getPrimeiraParcela().replace(".", "").replace(",", "."))));
+										parcela.setVencimentoParcela(calendar.getTime());
+
+										parcelas.add(parcela);
+
+										numParcela = i;
+
+									}
+
+								} else if (ultimaParcela == true) {
+
+									emprestimoComJuros = (emprestimoComJuros * juros);
+
+									parcela = new Parcelas();
+									parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
+									parcela.setValorParcela(nf.format(emprestimoComJuros));
+									parcela.setVencimentoParcela(calendar.getTime());
+
+									parcelas.add(parcela);
+
+									ultimaParcela = false;
+
+									numParcela = i;
+								}
+
+								// $scope.mydate3.setDate(1);
+
+							}
+						} else {
+
+							parcela = new Parcelas();
+							parcela.setParcela(i + "/1");
+							parcela.setValorParcela(nf.format(emprestimoComJuros));
+							parcela.setVencimentoParcela(simulacao.getDataVencimento());
+
+							parcelas.add(parcela);
+							
+							simulacao.setQuantidadeParcelas(1);
+
+							loop = false;
+						}
+					}
+				}
+
+			} else {
+
+				parcela = new Parcelas();
+				parcela.setParcela("1/1");
+				parcela.setValorParcela(nf.format(emprestimoComJuros));
+				parcela.setVencimentoParcela(simulacao.getDataVencimento());
+
+				parcelas.add(parcela);
+
+			}
+
+			if (numParcela < simulacao.getQuantidadeParcelas() && numParcela > 0) {
+				simulacao.setQuantidadeParcelas(numParcela);
+				for (int i = 0; i < parcelas.size(); i++) {
+					parcelas.get(i).setParcela((i + 1) + "/" + parcelas.size());
+				}
+			}
+
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/wep-application/simulacao/simularOperacao.xhtml");
+					.redirect("/simulacao/simularOperacao.xhtml");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,7 +192,7 @@ public class SimularOperacaoBean implements Serializable {
 		try {
 			result = false;
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/wep-application/simulacao/simularOperacao.xhtml");
+					.redirect("/simulacao/simularOperacao.xhtml");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,7 +204,7 @@ public class SimularOperacaoBean implements Serializable {
 			result = false;
 			simulacao = new Simulacao();
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/wep-application/simulacao/simularOperacao.xhtml");
+					.redirect("/simulacao/simularOperacao.xhtml");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -90,5 +233,9 @@ public class SimularOperacaoBean implements Serializable {
 
 	public void setSimulacao(Simulacao simulacao) {
 		this.simulacao = simulacao;
+	}
+
+	public List<Parcelas> getParcelas() {
+		return parcelas;
 	}
 }

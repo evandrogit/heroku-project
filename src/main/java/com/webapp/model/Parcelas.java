@@ -7,15 +7,15 @@ public class Parcelas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer parcela;
+	private String parcela;
 	private String valorParcela;
 	private Date vencimentoParcela;
 
-	public Integer getParcela() {
+	public String getParcela() {
 		return parcela;
 	}
 
-	public void setParcela(Integer parcela) {
+	public void setParcela(String parcela) {
 		this.parcela = parcela;
 	}
 
