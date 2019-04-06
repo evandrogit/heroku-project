@@ -38,7 +38,7 @@ function deleteItem(itemID) {
 
 		swalWithBootstrapButtons({
 		  title: 'Tem certeza?',
-		  text: "O registro desse cliente será apagado!",
+		  text: "O registro será apagado do seu banco de dados!",
 		  type: 'warning',
 		  showCancelButton: true,
 		  confirmButtonText: 'Sim, delete!',

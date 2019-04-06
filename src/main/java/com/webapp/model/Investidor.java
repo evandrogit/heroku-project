@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "cliente")
-public class Cliente implements Serializable {
+@Table(name = "investidor")
+public class Investidor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -78,7 +78,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Investidor other = (Investidor) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
