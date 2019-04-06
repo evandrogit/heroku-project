@@ -167,7 +167,7 @@
 						<p:outputLabel value="Data do empréstimo" for="data-emprestimo" />
 						<p:calendar id="data-emprestimo"
 							value="#{simularOperacaoBean.simulacao.dataEmprestimo}"
-							showOn="button" pattern="dd/MM/yyyy" />
+							showOn="button" pattern="dd/MM/yyyy" locale="pt" />
 					</p:panelGrid>
 
 					<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
@@ -229,7 +229,7 @@
 						columnClasses="ui-grid-col-2, ui-grid-col-3">
 
 						<p:outputLabel value="Vencimento" for="vencimento" />
-						<p:calendar id="vencimento"
+						<p:calendar id="vencimento" locale="pt"
 							value="#{simularOperacaoBean.simulacao.dataVencimento}"
 							showOn="button" pattern="dd/MM/yyyy" />
 					</p:panelGrid>

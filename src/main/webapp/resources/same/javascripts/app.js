@@ -37,12 +37,12 @@ function deleteItem(itemID) {
 		})
 
 		swalWithBootstrapButtons({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
+		  title: 'Tem certeza?',
+		  text: "O registro desse cliente será apagado!",
 		  type: 'warning',
 		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
+		  confirmButtonText: 'Sim, delete!',
+		  cancelButtonText: 'Não, cancele!',
 		  reverseButtons: true
 		}).then((result) => {
 		  if (result.value) {
@@ -50,94 +50,6 @@ function deleteItem(itemID) {
 			  setarItemID([ {
 					name : 'itemID',
 					value : itemID
-				} ]);
-			  		 
-		  }
-		})
-		
-}
-
-function deleteRepository(repositoryID) {
-	
-	const swalWithBootstrapButtons = swal.mixin({
-		  confirmButtonClass: 'btn btn-success',
-		  cancelButtonClass: 'btn btn-danger',
-		  buttonsStyling: false,
-		})
-
-		swalWithBootstrapButtons({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  type: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, delete it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.value) {
-			  
-			  setarRepositoryID([ {
-					name : 'repositoryID',
-					value : repositoryID
-				} ]);
-			  		 
-		  }
-		})
-		
-}
-
-function removeItem(repositoryID) {
-	
-	const swalWithBootstrapButtons = swal.mixin({
-		  confirmButtonClass: 'btn btn-success',
-		  cancelButtonClass: 'btn btn-danger',
-		  buttonsStyling: false,
-		})
-
-		swalWithBootstrapButtons({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  type: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, do it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.value) {
-			  
-			  setarRepositoryID([ {
-					name : 'repositoryID',
-					value : repositoryID
-				} ]);
-			  		 
-		  }
-		})
-		
-}
-
-
-function confirmCutpoint(balanceID) {
-	
-	const swalWithBootstrapButtons = swal.mixin({
-		  confirmButtonClass: 'btn btn-success',
-		  cancelButtonClass: 'btn btn-danger',
-		  buttonsStyling: false,
-		})
-
-		swalWithBootstrapButtons({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  type: 'warning',
-		  showCancelButton: true,
-		  confirmButtonText: 'Yes, do it!',
-		  cancelButtonText: 'No, cancel!',
-		  reverseButtons: true
-		}).then((result) => {
-		  if (result.value) {
-			  
-			  setarCutPoint([ {
-					name : 'balanceID',
-					value : balanceID
 				} ]);
 			  		 
 		  }

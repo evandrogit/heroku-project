@@ -20,7 +20,7 @@ public class Simulacao implements Serializable {
 	@NotBlank
 	private String valorEmprestimo = "";
 	private Integer quantidadeParcelas = 1;
-	private Integer percentualJuros = 0;
+	private Integer percentualJuros = 20;
 	@NotBlank
 	private String primeiraParcela;
 	@NotNull
