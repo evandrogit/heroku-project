@@ -30,17 +30,20 @@ public class CadastroEmprestimoBean implements Serializable {
 	@Inject
 	private Parcelas parcelas;
 
-	@Inject
-	private Emprestimo emprestimo;
+	//@Inject
+	private Emprestimo emprestimo = new Emprestimo();
 
 	public void inicializar() {
 		if (FacesUtil.isNotPostback()) {
 
 		}
 	}
+	
+	public void buscar() {
+		emprestimo = emprestimos.porId(emprestimo.getId());
+	}
 
 	public void definirCliente(Cliente cliente) {
-		System.out.println(cliente.getId());
 		emprestimo = new Emprestimo();
 		emprestimo.setCliente(cliente);
 	}
