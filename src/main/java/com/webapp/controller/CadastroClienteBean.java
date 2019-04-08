@@ -10,7 +10,10 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 
 import com.webapp.model.Cliente;
+import com.webapp.model.Emprestimo;
 import com.webapp.repository.Clientes;
+import com.webapp.repository.Emprestimos;
+import com.webapp.repository.Parcelas;
 import com.webapp.repository.filter.ClienteFilter;
 import com.webapp.util.jsf.FacesUtil;
 
@@ -25,6 +28,12 @@ public class CadastroClienteBean implements Serializable {
 
 	@Inject
 	private Cliente cliente;
+	
+	@Inject
+	private Emprestimos emprestimos;
+
+	@Inject
+	private Emprestimo emprestimo;
 
 	private List<Cliente> todosClientes;
 
@@ -59,12 +68,18 @@ public class CadastroClienteBean implements Serializable {
 	}
 
 	public void excluir() {
-
+		
+		List<Emprestimo> emprestimos = this.emprestimos.porCliente(clienteSelecionado.getId());
+		
+		for (Emprestimo emprestimo : emprestimos) {
+			this.emprestimos.remove(emprestimo);
+		}
+		
 		clientes.remove(clienteSelecionado);
 
 		clienteSelecionado = null;
 
-		listarTodos();
+		pesquisar();
 
 		PrimeFaces.current().executeScript(
 				"swal({ type: 'success', title: 'Concluído!', text: 'Cliente excluído com sucesso!' });");
@@ -72,7 +87,6 @@ public class CadastroClienteBean implements Serializable {
 	}
 
 	public void pesquisar() {
-		System.out.println(filtro.getNome());
 		todosClientes = clientes.filtrados(filtro);
 		clienteSelecionado = null;
 	}

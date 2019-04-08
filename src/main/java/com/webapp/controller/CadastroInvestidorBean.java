@@ -72,7 +72,6 @@ public class CadastroInvestidorBean implements Serializable {
 	}
 
 	public void pesquisar() {
-		System.out.println(filtro.getNome());
 		todosInvestidores = investidores.filtrados(filtro);
 		investidorSelecionado = null;
 	}

@@ -2,11 +2,11 @@ package com.webapp.repository.filter;
 
 import java.io.Serializable;
 
-public class ClienteFilter implements Serializable {
+public class EmprestimoFilter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String nome = "";
+	private String nome;
 
 	public String getNome() {
 		return nome;

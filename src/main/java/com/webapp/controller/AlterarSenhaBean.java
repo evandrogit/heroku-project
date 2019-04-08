@@ -39,6 +39,7 @@ public class AlterarSenhaBean implements Serializable {
 		confirmacao = "";
 	}
 
+	@SuppressWarnings("deprecation")
 	public void alterarSenha(Usuario usuario) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

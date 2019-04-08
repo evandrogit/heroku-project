@@ -45,23 +45,30 @@
 								value="Simular Operação" icon="fa fa-calculator"
 								outcome="/simulacao/SimularOperacao.xhtml" />
 
-							<p:menuitem id="pm_emprestimo" styleClass="pm_emprestimo"
-								value="Empréstimo" icon="fa fa-folder-open-o" />
+							<p:submenu id="pm_operacoes" styleClass="pm_operacoes"
+								label="Operações" icon="fa fa-cogs">
 
+								<p:menuitem id="pm_emprestimo" styleClass="pm_emprestimo"
+									value="Novo empréstimo" icon="fa fa-bookmark-o"
+									outcome="/operacoes/Emprestimo.xhtml" />
+
+								<p:menuitem id="pm_pagamento2" styleClass="pm_pagamento"
+									value="Atualização / Pagamento" icon="fa fa-money"
+									outcome="/operacoes/AtualizacoesPagamentos.xhtml" />
+
+								<p:menuitem id="pm_investimento" styleClass="pm_investimento"
+									value="Investimento" icon="fa fa-diamond" />
+							</p:submenu>
 
 							<p:submenu id="pm_cadastro" label="Cadastro"
 								icon="fa fa-database">
 								<p:menuitem id="pm_cliente" value="Clientes"
-									icon="fa fa-user-plus" outcome="/cadastros/CadastroClientes.xhtml" />
+									icon="fa fa-user-plus"
+									outcome="/cadastros/CadastroClientes.xhtml" />
 
 								<p:menuitem id="pm_investidor" value="Investidores"
-									icon="fa fa-user-secret" outcome="/cadastros/CadastroInvestidores.xhtml" />
-							</p:submenu>
-							
-							<p:submenu id="pm_buscar" label="Pesquisar" icon="fa fa-search">
-
-								<p:menuitem id="pm_emprestimos" styleClass="pm_emprestimos"
-								value="Empréstimos" icon="fa fa-files-o" />
+									icon="fa fa-user-secret"
+									outcome="/cadastros/CadastroInvestidores.xhtml" />
 							</p:submenu>
 
 							<p:submenu id="pm_lancamento" label="Lançamentos"
@@ -73,6 +80,9 @@
 									value="Despesas" icon="fa fa-list-ol" />
 							</p:submenu>
 
+							<p:menuitem id="pm_relatorio" styleClass="pm_relatorio"
+								value="Relatórios" icon="fa fa-line-chart"
+								outcome="/Dashboard_.xhtml" />
 
 						</pm:menu>
 					</h:form>

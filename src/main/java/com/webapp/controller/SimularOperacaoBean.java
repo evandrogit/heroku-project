@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.webapp.model.Parcelas;
+import com.webapp.model.Parcela;
 import com.webapp.model.Simulacao;
 
 @Named
@@ -37,9 +37,9 @@ public class SimularOperacaoBean implements Serializable {
 
 	private String valorEmprestado;
 
-	private Parcelas parcela;
+	private Parcela parcela;
 
-	private List<Parcelas> parcelas = new ArrayList<Parcelas>();
+	private List<Parcela> parcelas = new ArrayList<Parcela>();
 
 	public void calcular() {
 
@@ -47,7 +47,7 @@ public class SimularOperacaoBean implements Serializable {
 			result = true;
 			valorEmprestado = nf.format(Double.parseDouble(simulacao.getValorEmprestimo()));
 
-			parcelas = new ArrayList<Parcelas>();
+			parcelas = new ArrayList<Parcela>();
 
 			double juros = (((double) simulacao.getPercentualJuros()) / 100) + 1;
 			double emprestimoComJuros = Double.parseDouble(simulacao.getValorEmprestimo()) * juros;
@@ -63,7 +63,6 @@ public class SimularOperacaoBean implements Serializable {
 			if (simulacao.getQuantidadeParcelas() > 1) {
 
 				for (int i = 1; i <= simulacao.getQuantidadeParcelas(); i++) {
-					// $scope.mydate.setDate($scope.mydate.getDate() + numberOfDaysToAdd);
 
 					if (loop == true) {
 
@@ -74,7 +73,7 @@ public class SimularOperacaoBean implements Serializable {
 								emprestimoComJuros = (emprestimoComJuros
 										- Double.parseDouble(simulacao.getPrimeiraParcela()));
 
-								parcela = new Parcelas();
+								parcela = new Parcela();
 								parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
 								parcela.setValorParcela(nf.format(Double.parseDouble(simulacao.getPrimeiraParcela().replace(".", "").replace(",", "."))));
 								parcela.setVencimentoParcela(simulacao.getDataVencimento());
@@ -102,7 +101,7 @@ public class SimularOperacaoBean implements Serializable {
 
 										emprestimoComJuros = (emprestimoComJuros * juros);
 
-										parcela = new Parcelas();
+										parcela = new Parcela();
 										parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
 										parcela.setValorParcela(nf.format(emprestimoComJuros));
 										parcela.setVencimentoParcela(calendar.getTime());
@@ -116,7 +115,7 @@ public class SimularOperacaoBean implements Serializable {
 										emprestimoComJuros = (emprestimoComJuros * juros)
 												- Double.parseDouble(simulacao.getPrimeiraParcela());
 
-										parcela = new Parcelas();
+										parcela = new Parcela();
 										parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
 										parcela.setValorParcela(nf.format(Double.parseDouble(simulacao.getPrimeiraParcela().replace(".", "").replace(",", "."))));
 										parcela.setVencimentoParcela(calendar.getTime());
@@ -131,7 +130,7 @@ public class SimularOperacaoBean implements Serializable {
 
 									emprestimoComJuros = (emprestimoComJuros * juros);
 
-									parcela = new Parcelas();
+									parcela = new Parcela();
 									parcela.setParcela(i + "/" + simulacao.getQuantidadeParcelas());
 									parcela.setValorParcela(nf.format(emprestimoComJuros));
 									parcela.setVencimentoParcela(calendar.getTime());
@@ -143,12 +142,10 @@ public class SimularOperacaoBean implements Serializable {
 									numParcela = i;
 								}
 
-								// $scope.mydate3.setDate(1);
-
 							}
 						} else {
 
-							parcela = new Parcelas();
+							parcela = new Parcela();
 							parcela.setParcela(i + "/1");
 							parcela.setValorParcela(nf.format(emprestimoComJuros));
 							parcela.setVencimentoParcela(simulacao.getDataVencimento());
@@ -164,7 +161,7 @@ public class SimularOperacaoBean implements Serializable {
 
 			} else {
 
-				parcela = new Parcelas();
+				parcela = new Parcela();
 				parcela.setParcela("1/1");
 				parcela.setValorParcela(nf.format(emprestimoComJuros));
 				parcela.setVencimentoParcela(simulacao.getDataVencimento());
@@ -181,7 +178,7 @@ public class SimularOperacaoBean implements Serializable {
 			}
 
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/simulacao/simularOperacao.xhtml");
+					.redirect("/simulacao/SimularOperacao.xhtml");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -192,7 +189,7 @@ public class SimularOperacaoBean implements Serializable {
 		try {
 			result = false;
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/simulacao/simularOperacao.xhtml");
+					.redirect("/simulacao/SimularOperacao.xhtml");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -204,7 +201,7 @@ public class SimularOperacaoBean implements Serializable {
 			result = false;
 			simulacao = new Simulacao();
 			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("/simulacao/simularOperacao.xhtml");
+					.redirect("/simulacao/SimularOperacao.xhtml");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -235,7 +232,7 @@ public class SimularOperacaoBean implements Serializable {
 		this.simulacao = simulacao;
 	}
 
-	public List<Parcelas> getParcelas() {
+	public List<Parcela> getParcelas() {
 		return parcelas;
 	}
 }

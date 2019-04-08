@@ -26,7 +26,7 @@ public class Simulacao implements Serializable {
 	@NotNull
 	private Date dataVencimento;
 
-	private Parcelas parcelas;
+	private Parcela parcelas;
 
 	public String getNome() {
 		return nome;
@@ -100,11 +100,11 @@ public class Simulacao implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public Parcelas getParcelas() {
+	public Parcela getParcelas() {
 		return parcelas;
 	}
 
-	public void setParcelas(Parcelas parcelas) {
+	public void setParcelas(Parcela parcelas) {
 		this.parcelas = parcelas;
 	}
 
