@@ -13,7 +13,6 @@ import com.webapp.model.Cliente;
 import com.webapp.model.Emprestimo;
 import com.webapp.repository.Clientes;
 import com.webapp.repository.Emprestimos;
-import com.webapp.repository.Parcelas;
 import com.webapp.repository.filter.ClienteFilter;
 import com.webapp.util.jsf.FacesUtil;
 
@@ -31,9 +30,6 @@ public class CadastroClienteBean implements Serializable {
 	
 	@Inject
 	private Emprestimos emprestimos;
-
-	@Inject
-	private Emprestimo emprestimo;
 
 	private List<Cliente> todosClientes;
 

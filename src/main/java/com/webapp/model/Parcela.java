@@ -22,21 +22,24 @@ public class Parcela implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false)
+	private Date dataPagamento;
 
 	@Column(nullable = false)
-	private Double valor;
+	private Double valorPago;
 
 	@Column(nullable = false)
-	private Double restante;
+	private Double debito;
 
 	@Column(nullable = false)
 	private Double juros;
 
-	@Column
+	@Column(nullable = false)
 	private Double desconto;
 
 	@Column(nullable = false)
-	private Double proximo;
+	private Double valorRestante;
 
 	@ManyToOne
 	@JoinColumn
@@ -59,20 +62,28 @@ public class Parcela implements Serializable {
 		this.id = id;
 	}
 
-	public Double getValor() {
-		return valor;
+	public Date getDataPagamento() {
+		return dataPagamento;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
-	public Double getRestante() {
-		return restante;
+	public Double getValorPago() {
+		return valorPago;
 	}
 
-	public void setRestante(Double restante) {
-		this.restante = restante;
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public Double getDebito() {
+		return debito;
+	}
+
+	public void setDebito(Double debito) {
+		this.debito = debito;
 	}
 
 	public Double getJuros() {
@@ -91,12 +102,12 @@ public class Parcela implements Serializable {
 		this.desconto = desconto;
 	}
 
-	public Double getProximo() {
-		return proximo;
+	public Double getValorRestante() {
+		return valorRestante;
 	}
 
-	public void setProximo(Double proximo) {
-		this.proximo = proximo;
+	public void setValorRestante(Double valorRestante) {
+		this.valorRestante = valorRestante;
 	}
 
 	public Emprestimo getEmprestimo() {
