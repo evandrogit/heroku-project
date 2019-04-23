@@ -2,20 +2,23 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" 
-	template="/WEB-INF/template.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
 	<ui:define name="title">Empréstimo</ui:define>
-	
+
 	<f:metadata>
-		<f:viewParam name="id" value="#{cadastroEmprestimoBean.emprestimo.id}"  />
-		<f:viewAction action="#{cadastroEmprestimoBean.buscar}" if="#{param.id ne null}" />
+		<f:viewParam name="id" value="#{cadastroEmprestimoBean.emprestimo.id}" />
+		<f:viewAction action="#{cadastroEmprestimoBean.buscar}"
+			if="#{param.id ne null}" />
 	</f:metadata>
 
 	<ui:define name="content">
 
 		<style>
 @media ( min-width :220px) {
+	.ui-blockui-content {
+		padding: 0.25em;
+	}
 	.ui-slider .ui-slider-handle {
 		width: 1.7em;
 		height: 1.7em;
@@ -63,7 +66,7 @@
 		padding: 10px 0px 0px 0px;
 	}
 	body .ui-datatable .ui-paginator {
-	    padding: 2px 0px !important;
+		padding: 2px 0px !important;
 	}
 	#cliente-dialog.ui-dialog {
 		margin-top: -1550px !important;
@@ -128,8 +131,8 @@
 					<h3 style="font-weight: bold">Dados do Cliente</h3>
 
 					<p:inputText type="hidden"
-						value="#{cadastroEmprestimoBean.emprestimo.cliente.id}" required="true"
-						requiredMessage="Cliente deve ser informado." />
+						value="#{cadastroEmprestimoBean.emprestimo.cliente.id}"
+						required="true" requiredMessage="Cliente deve ser informado." />
 
 					<p:commandButton styleClass="btn-new" icon="fa fa-fw fa-user"
 						title="Buscar cliente" oncomplete="PF('cliente-dialog').show()"
@@ -175,7 +178,8 @@
 						columnClasses="ui-grid-col-2, ui-grid-col-3">
 
 						<p:outputLabel value="Contrato N°." for="contrato" />
-						<p:inputText id="contrato" readonly="true" value="#{cadastroEmprestimoBean.emprestimo.contrato}"
+						<p:inputText id="contrato" readonly="true"
+							value="#{cadastroEmprestimoBean.emprestimo.contrato}"
 							placeholder="Gerado automaticamente." />
 					</p:panelGrid>
 
@@ -265,7 +269,9 @@
 						<p:commandButton icon="fa fa-fw fa-search" title="Pesquisar"
 							id="pesquisar-button" update="clientesTable"
 							style="margin-left: 3px; width: 40px" process="@parent"
-							action="#{cadastroClienteBean.pesquisar}">
+							action="#{cadastroClienteBean.pesquisar}"
+							onstart="PF('downloadLoading').show();"
+							oncomplete="PF('downloadLoading').hide();">
 						</p:commandButton>
 
 						<p:dataTable id="clientesTable" paginatorAlwaysVisible="false"

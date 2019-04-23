@@ -45,7 +45,7 @@ public class AlterarSenhaBean implements Serializable {
 
 		if (passwordEncoder.matches(this.senhaAtual, usuario.getSenha())) {
 			if (!this.novaSenha.equals(this.confirmacao)) {
-				FacesUtil.addErrorMessage("Confirma√ß√£o inv√°lida!");
+				FacesUtil.addErrorMessage("ConfirmaÁ„o inv·lida!");
 				RequestContext.getCurrentInstance().update(Arrays.asList("msg-password"));
 
 			} else {
@@ -53,11 +53,11 @@ public class AlterarSenhaBean implements Serializable {
 				usuario.setSenha(hashedPassword);
 				usuarios.save(usuario);
 
-				FacesUtil.addInfoMessage("Altera√ß√£o realizada com sucesso!");
+				FacesUtil.addInfoMessage("AlteraÁ„o realizada com sucesso!");
 				RequestContext.getCurrentInstance().update(Arrays.asList("msg-password"));
 			}
 		} else {
-			FacesUtil.addErrorMessage("Senha atual inv√°lida!");
+			FacesUtil.addErrorMessage("Senha atual inv·lida!");
 			RequestContext.getCurrentInstance().update(Arrays.asList("msg-password"));
 		}
 	}

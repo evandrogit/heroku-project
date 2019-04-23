@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +35,7 @@ public class Emprestimo implements Serializable {
 
 	@NotNull
 	@Column
-	private Date dataEmprestimo;
+	private Date dataEmprestimo = new Date();
 
 	@NotBlank
 	@Column
@@ -60,6 +61,10 @@ public class Emprestimo implements Serializable {
 
 	@Column(nullable = false)
 	private Date proximoVencimento;
+	
+	@Transient
+	private Date proximoVencimentoTemp;
+	
 
 	@Column(nullable = false)
 	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
@@ -71,7 +76,7 @@ public class Emprestimo implements Serializable {
 
 	@Column(nullable = false)
 	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
-	private BigDecimal total;
+	private BigDecimal total = BigDecimal.ZERO;
 
 	@Column(nullable = false)
 	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
@@ -163,6 +168,14 @@ public class Emprestimo implements Serializable {
 		this.proximoVencimento = proximoVencimento;
 	}
 
+	public Date getProximoVencimentoTemp() {
+		return proximoVencimentoTemp;
+	}
+
+	public void setProximoVencimentoTemp(Date proximoVencimentoTemp) {
+		this.proximoVencimentoTemp = proximoVencimentoTemp;
+	}
+
 	public BigDecimal getDebito() {
 		return debito;
 	}
@@ -243,5 +256,17 @@ public class Emprestimo implements Serializable {
 			return false;
 		return true;
 	}
+	
+	@Transient
+	private String totalTemp;
+
+	public String getTotalTemp() {
+		return totalTemp;
+	}
+
+	public void setTotalTemp(String totalTemp) {
+		this.totalTemp = totalTemp;
+	}
+	
 
 }

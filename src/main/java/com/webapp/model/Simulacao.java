@@ -16,10 +16,10 @@ public class Simulacao implements Serializable {
 	private String cpf;
 	private String contato;
 	@NotNull
-	private Date dataEmprestimo;
+	private Date dataEmprestimo = new Date();
 	@NotBlank
 	private String valorEmprestimo = "";
-	private Integer quantidadeParcelas = 1;
+	private Integer quantidadeParcelas = 3;
 	private Integer percentualJuros = 20;
 	@NotBlank
 	private String primeiraParcela;

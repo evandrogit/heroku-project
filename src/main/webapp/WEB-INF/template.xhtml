@@ -37,7 +37,7 @@
 </h:head>
 
 <h:body>
-	<div class="layout-wrapper">
+	<div class="layout-wrapper layout-wrapper-static layout-wrapper-static-restore">
 		<ui:include src="sidebar.xhtml" />
 
 		<div class="layout-main">
@@ -58,7 +58,7 @@
 	<p:growl id="msg-password" closable="true" life="3000"
 		showSummary="false" showDetail="true" style="text-align: center" />
 
-	<p:dialog header="Change Password" widgetVar="passwordDialog"
+	<p:dialog header="Trocar senha" widgetVar="passwordDialog"
 		id="password-dialog" resizable="false" modal="true"
 		closeOnEscape="true" responsive="true" width="250px"
 		style="margin-top: 10px">
@@ -73,15 +73,15 @@
 					style="margin-top: 10px; margin-bottom: 10px"
 					styleClass="panelgrid-noborder">
 
-					<p:outputLabel value="Current Password" for="atual" />
+					<p:outputLabel value="Senha atual" for="atual" />
 					<p:password id="atual" value="#{alterarSenhaBean.senhaAtual}"
 						redisplay="true" />
 
-					<p:outputLabel value="New password" for="nova" />
+					<p:outputLabel value="Nova senha" for="nova" />
 					<p:password id="nova" value="#{alterarSenhaBean.novaSenha}"
 						redisplay="true" />
 
-					<p:outputLabel value="Confirmation" for="confirme" />
+					<p:outputLabel value="Confirmação" for="confirme" />
 					<p:password id="confirme" value="#{alterarSenhaBean.confirmacao}"
 						redisplay="true" />
 

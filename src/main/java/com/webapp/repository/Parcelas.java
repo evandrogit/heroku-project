@@ -33,6 +33,10 @@ public class Parcelas implements Serializable {
 
 		this.manager.remove(emprestimoTemp);
 	}
+	
+	public List<Parcela> todas() {
+		return this.manager.createQuery("from Parcela order by id", Parcela.class).getResultList();
+	}
 
 	public List<Parcela> todasParcelas(Long id) {
 

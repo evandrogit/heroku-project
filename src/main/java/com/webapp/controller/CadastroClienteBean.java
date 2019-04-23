@@ -11,8 +11,10 @@ import org.primefaces.PrimeFaces;
 
 import com.webapp.model.Cliente;
 import com.webapp.model.Emprestimo;
+import com.webapp.model.Parcela;
 import com.webapp.repository.Clientes;
 import com.webapp.repository.Emprestimos;
+import com.webapp.repository.Parcelas;
 import com.webapp.repository.filter.ClienteFilter;
 import com.webapp.util.jsf.FacesUtil;
 
@@ -30,6 +32,9 @@ public class CadastroClienteBean implements Serializable {
 	
 	@Inject
 	private Emprestimos emprestimos;
+	
+	@Inject
+	private Parcelas parcelas;
 
 	private List<Cliente> todosClientes;
 
@@ -60,7 +65,7 @@ public class CadastroClienteBean implements Serializable {
 		listarTodos();
 
 		PrimeFaces.current().executeScript(
-				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Cliente salvo com sucesso!' });");
+				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'Concluído!', text: 'Cliente salvo com sucesso!' });");
 	}
 
 	public void excluir() {
@@ -68,6 +73,15 @@ public class CadastroClienteBean implements Serializable {
 		List<Emprestimo> emprestimos = this.emprestimos.porCliente(clienteSelecionado.getId());
 		
 		for (Emprestimo emprestimo : emprestimos) {
+			
+			List<Parcela> listaParcelas = parcelas.todasParcelas(emprestimo.getId());
+			
+			if(listaParcelas.size() > 0) {
+				for (Parcela parcela : listaParcelas) {
+					parcelas.remove(parcela);
+				}
+			}
+
 			this.emprestimos.remove(emprestimo);
 		}
 		
@@ -78,7 +92,7 @@ public class CadastroClienteBean implements Serializable {
 		pesquisar();
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Cliente excluÃ­do com sucesso!' });");
+				"swal({ type: 'success', title: 'Concluído!', text: 'Cliente excluído com sucesso!' });");
 
 	}
 

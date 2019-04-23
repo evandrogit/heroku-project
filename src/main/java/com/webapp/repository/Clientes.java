@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.webapp.model.Cliente;
 import com.webapp.repository.filter.ClienteFilter;
@@ -41,5 +42,13 @@ public class Clientes implements Serializable {
 	public List<Cliente> filtrados(ClienteFilter filter) {
 		return this.manager.createQuery("from Cliente c where c.nome like :nome order by nome", Cliente.class)
 				.setParameter("nome", "%" + filter.getNome() + "%").getResultList();
+	}
+	
+	public Number totalClientes() {		
+		String jpql = "SELECT count(c) FROM Cliente c";
+		Query q = manager.createQuery(jpql);
+		Number count = (Number) q.getSingleResult();
+		
+		return count;
 	}
 }

@@ -93,6 +93,9 @@ public class SimularOperacaoBean implements Serializable {
 								} else {
 									calendar.set(Calendar.DAY_OF_MONTH, dia);
 								}
+								
+								System.out.println((emprestimoComJuros * juros)
+										- Double.parseDouble(simulacao.getPrimeiraParcela()));
 
 								if ((emprestimoComJuros * juros)
 										- Double.parseDouble(simulacao.getPrimeiraParcela()) > 0) {
@@ -127,7 +130,7 @@ public class SimularOperacaoBean implements Serializable {
 									}
 
 								} else if (ultimaParcela == true) {
-
+									
 									emprestimoComJuros = (emprestimoComJuros * juros);
 
 									parcela = new Parcela();
@@ -139,8 +142,10 @@ public class SimularOperacaoBean implements Serializable {
 
 									ultimaParcela = false;
 
-									numParcela = i;
-								}
+									numParcela = i;									
+									
+									loop = false;
+								} 
 
 							}
 						} else {

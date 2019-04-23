@@ -5,12 +5,24 @@ import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class CDIServiceLocator {
 
 	private static BeanManager getBeanManager() {
 		return CDI.current().getBeanManager();
 	}
+	
+	/*
+	private static BeanManager getBeanManager() {
+		try {
+			InitialContext initialContext = new InitialContext();
+			return (BeanManager) initialContext.lookup("java:comp/env/BeanManager");
+		} catch (NamingException e) {
+			throw new RuntimeException("Não pôde encontrar BeanManager no JNDI.");
+		}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> clazz) {

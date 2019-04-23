@@ -56,6 +56,12 @@
 	.swal2-popup #swal2-content {
 	    font-weight: 400;
 	}
+	body #resultado .btn-recalcular .ui-button {
+    	width: 100% !important;
+    }
+    #resultado .ui-grid-responsive .ui-grid-col-2 {
+    	width: 33.33333% !important;
+    }
 }
 
 @media ( min-width :460px) {
@@ -90,6 +96,7 @@
 	body .ui-fluid .ui-trigger-calendar .ui-datepicker-trigger.ui-button {
 		height: 27px !important;
 	}
+	
 	.result .apply-result .ui-grid-responsive .ui-grid-col-4 {
 		width: 33.33333% !important;
 		float: none;
@@ -98,6 +105,28 @@
 		width: auto !important;
 		float: none;
 	}
+	
+	.ui-datatable-tablewrapper {
+	    width: 100% !important;
+	}
+	body #resultado .btn-recalcular .ui-button {
+    	width: 100% !important;
+    }
+	
+}
+@media ( min-width :960px) {
+	.ui-datatable-tablewrapper {
+	    width: 50% !important;
+	}
+	body #resultado .btn-recalcular .ui-button {
+    	width: 50% !important;
+    }
+    .result .apply-result .ui-grid-responsive .ui-grid-col-4 {
+    	width: 16.33333% !important;
+    }
+    #resultado .ui-grid-responsive .ui-grid-col-2 {
+    	width:  16.33333% !important;
+    }
 }
 </style>
 
@@ -110,6 +139,8 @@
 			showDetail="true" style="text-align: center" />
 
 		<div class="ui-g-12 ui-lg-12">
+		
+		<p:focus for="simulacao:nome" />
 
 			<h:form id="simulacao">
 
@@ -251,7 +282,7 @@
 				</p:panel>
 			</h:form>
 
-			<h:form rendered="#{simularOperacaoBean.result ? 'true' : 'false' }">
+			<h:form id="resultado" rendered="#{simularOperacaoBean.result ? 'true' : 'false' }">
 
 				<p:defaultCommand target="btn-recalcular" />
 
@@ -335,7 +366,7 @@
 
 					<p:panelGrid columns="2" layout="grid"
 						styleClass="panelgrid-noborder disabled disabled"
-						columnClasses="ui-grid-col-4, ui-grid-col-7, ui-grid-col-3">
+						columnClasses="ui-grid-col-2, ui-grid-col-6, ui-grid-col-3">
 
 						<p:outputLabel />
 						<p:dataTable id="tblParcelas" var="parcela"
@@ -363,14 +394,14 @@
 
 
 					<p:panelGrid columns="2" layout="grid"
-						styleClass="panelgrid-noborder disabled disabled"
-						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4">
+						styleClass="panelgrid-noborder disabled disabled btn-recalcular"
+						columnClasses="ui-grid-col-2, ui-grid-col-6, ui-grid-col-3">
 
 						<p:outputLabel />
 						<p:commandButton id="btn-recalcular" value="Recalcular"
 							onclick="PrimeFaces.monitorDownload(start, stop);"
 							process="@this" action="#{simularOperacaoBean.recalcular}"
-							style="width: 100% !important; font-weight: bold; margin-top: 30px; margin-bottom: 15px" />
+							style="font-weight: bold; margin-top: 30px; margin-bottom: 15px" />
 					</p:panelGrid>
 
 				</p:panel>

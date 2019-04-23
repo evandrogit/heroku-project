@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.webapp.model.Investidor;
 import com.webapp.repository.filter.InvestidorFilter;
@@ -41,5 +42,13 @@ public class Investidores implements Serializable {
 	public List<Investidor> filtrados(InvestidorFilter filter) {
 		return this.manager.createQuery("from Investidor i where i.nome like :nome order by nome", Investidor.class)
 				.setParameter("nome", "%" + filter.getNome() + "%").getResultList();
+	}
+	
+	public Number totalInvestidores() {		
+		String jpql = "SELECT count(i) FROM Investidor i";
+		Query q = manager.createQuery(jpql);
+		Number count = (Number) q.getSingleResult();
+		
+		return count;
 	}
 }

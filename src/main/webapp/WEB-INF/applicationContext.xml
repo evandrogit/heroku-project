@@ -20,14 +20,14 @@
 
 	<beans:bean id="jsfAccessDeniedHandler"
 		class="com.webapp.security.JsfAccessDeniedHandler">
-		<beans:property name="loginPath" value="/403_.xhtml" />
+		<beans:property name="loginPath" value="/403.xhtml" />
 		<beans:property name="contextRelative" value="true" />
 	</beans:bean>
 
 	<beans:bean id="authenticationEntryPoint"
 		class="com.webapp.security.JsfLoginUrlAuthenticationEntryPoint">
 		<beans:property name="loginFormUrl"
-			value="/Login_.xhtml" />
+			value="/Login.xhtml" />
 		<beans:property name="redirectStrategy"
 			ref="jsfRedirectStrategy" />
 	</beans:bean>
@@ -35,9 +35,9 @@
 	<beans:bean id="jsfRedirectStrategy"
 		class="com.webapp.security.JsfRedirectStrategy" />
 
-	<http pattern="/Login_.xhtml" security="none" />
-	<http pattern="/500_.xhtml" security="none" />
-	<http pattern="/404_.xhtml" security="none" />
+	<http pattern="/Login.xhtml" security="none" />
+	<http pattern="/500.xhtml" security="none" />
+	<http pattern="/404.xhtml" security="none" />
 	<http pattern="/javax.faces.resource/**" security="none" />
 
 
@@ -45,16 +45,26 @@
 		<custom-filter ref="exceptionTranslationFilter"
 			before="FILTER_SECURITY_INTERCEPTOR" />
 
-		<intercept-url pattern="/Dashboard_.xhtml"
+		<intercept-url pattern="/Dashboard.xhtml"
 			access="isAuthenticated()" />
-		<intercept-url pattern="/simulacao/simularOperacao.xhtml"
+		<intercept-url
+			pattern="/simulacao/simularOperacao.xhtml" access="isAuthenticated()" />
+
+		<intercept-url pattern="/operacoes/**"
 			access="isAuthenticated()" />
-		<intercept-url pattern="/403_.xhtml"
+
+		<intercept-url pattern="/cadastros/**"
+			access="isAuthenticated()" />
+
+		<intercept-url pattern="/lancamentos/**"
+			access="isAuthenticated()" />
+
+		<intercept-url pattern="/403.xhtml"
 			access="isAuthenticated()" />
 		<!-- <intercept-url pattern="/**" access="denyAll" /> -->
 
-		<form-login login-page="/Login_.xhtml"
-			authentication-failure-url="/Login_.xhtml?invalid=true"
+		<form-login login-page="/Login.xhtml"
+			authentication-failure-url="/Login.xhtml?invalid=true"
 			default-target-url="/" always-use-default-target="true" />
 		<logout logout-url="/j_spring_security_logout"
 			invalidate-session="true" />

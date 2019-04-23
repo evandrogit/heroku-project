@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 
 import com.webapp.model.Emprestimo;
+import com.webapp.model.StatusEmprestimo;
 import com.webapp.repository.filter.EmprestimoFilter;
 import com.webapp.util.jpa.Transacional;
 
@@ -39,6 +40,12 @@ public class Emprestimos implements Serializable {
 
 	public List<Emprestimo> todos() {
 		return this.manager.createQuery("from Emprestimo order by id", Emprestimo.class).getResultList();
+	}
+
+	public List<Emprestimo> porStatus(StatusEmprestimo statusEmprestimo) {
+		return this.manager
+				.createQuery("from Emprestimo e where e.statusEmprestimo = :status order by id", Emprestimo.class)
+				.setParameter("status", statusEmprestimo).getResultList();
 	}
 
 	public List<Emprestimo> filtrados(EmprestimoFilter filter) {

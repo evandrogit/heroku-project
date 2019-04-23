@@ -45,14 +45,14 @@ body #pecaDialog .ui-datatable .ui-datatable-data>tr td {
 								<p:commandLink action="#{alterarSenhaBean.prepararAlterarSenha}"
 									oncomplete="PF('passwordDialog').show()" process="@this"
 									update="password-dialog">
-									<i class="fa  fa-fw fa-lock"></i> Change Password
+									<i class="fa  fa-fw fa-lock"></i> Trocar senha
 									
 									<p:resetInput target="password-dialog" />
 								</p:commandLink>
 							</h:form></li>
 						<li role="menuitem"><h:form>
 								<p:link href="/j_spring_security_logout">
-									<i class="fa fa-fw fa-sign-out"></i> Logout
+									<i class="fa fa-fw fa-sign-out"></i> Sair
 								</p:link>
 							</h:form></li>
 					</ul></li>

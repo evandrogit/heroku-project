@@ -1,6 +1,7 @@
 package com.webapp.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
 
 @Entity
 @Table(name = "parcela")
@@ -24,27 +26,33 @@ public class Parcela implements Serializable {
 	private Long id;
 	
 	@Column(nullable = false)
-	private Date dataPagamento;
+	private Date dataPagamento = new Date();
 
 	@Column(nullable = false)
-	private Double valorPago;
+	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+	private BigDecimal valorPago;
 
 	@Column(nullable = false)
-	private Double debito;
+	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+	private BigDecimal debito;
 
 	@Column(nullable = false)
-	private Double juros;
+	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+	private BigDecimal juros;
 
 	@Column(nullable = false)
-	private Double desconto;
+	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+	private BigDecimal desconto;
 
 	@Column(nullable = false)
-	private Double valorRestante;
+	@Digits(integer = 10 /*precision*/, fraction = 2 /*scale*/)
+	private BigDecimal valorRestante;
 
 	@ManyToOne
 	@JoinColumn
 	private Emprestimo emprestimo;
 
+	/* Simulação de Empréstimo */
 	@Transient
 	private String parcela;
 
@@ -53,6 +61,15 @@ public class Parcela implements Serializable {
 
 	@Transient
 	private Date vencimentoParcela;
+	
+	@Transient
+	public String valorPagoTemp;
+	
+	@Transient
+	public String descontoTemp;
+	
+	@Transient
+	public String valorRestanteTemp;
 
 	public Long getId() {
 		return id;
@@ -70,43 +87,43 @@ public class Parcela implements Serializable {
 		this.dataPagamento = dataPagamento;
 	}
 
-	public Double getValorPago() {
+	public BigDecimal getValorPago() {
 		return valorPago;
 	}
 
-	public void setValorPago(Double valorPago) {
+	public void setValorPago(BigDecimal valorPago) {
 		this.valorPago = valorPago;
 	}
 
-	public Double getDebito() {
+	public BigDecimal getDebito() {
 		return debito;
 	}
 
-	public void setDebito(Double debito) {
+	public void setDebito(BigDecimal debito) {
 		this.debito = debito;
 	}
 
-	public Double getJuros() {
+	public BigDecimal getJuros() {
 		return juros;
 	}
 
-	public void setJuros(Double juros) {
+	public void setJuros(BigDecimal juros) {
 		this.juros = juros;
 	}
 
-	public Double getDesconto() {
+	public BigDecimal getDesconto() {
 		return desconto;
 	}
 
-	public void setDesconto(Double desconto) {
+	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
 	}
 
-	public Double getValorRestante() {
+	public BigDecimal getValorRestante() {
 		return valorRestante;
 	}
 
-	public void setValorRestante(Double valorRestante) {
+	public void setValorRestante(BigDecimal valorRestante) {
 		this.valorRestante = valorRestante;
 	}
 
@@ -140,6 +157,30 @@ public class Parcela implements Serializable {
 
 	public void setVencimentoParcela(Date vencimentoParcela) {
 		this.vencimentoParcela = vencimentoParcela;
+	}
+
+	public String getValorPagoTemp() {
+		return valorPagoTemp;
+	}
+
+	public void setValorPagoTemp(String valorPagoTemp) {
+		this.valorPagoTemp = valorPagoTemp;
+	}
+
+	public String getDescontoTemp() {
+		return descontoTemp;
+	}
+
+	public void setDescontoTemp(String descontoTemp) {
+		this.descontoTemp = descontoTemp;
+	}
+
+	public String getValorRestanteTemp() {
+		return valorRestanteTemp;
+	}
+
+	public void setValorRestanteTemp(String valorRestanteTemp) {
+		this.valorRestanteTemp = valorRestanteTemp;
 	}
 
 	@Override

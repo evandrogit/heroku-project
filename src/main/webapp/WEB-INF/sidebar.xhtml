@@ -22,7 +22,7 @@
 
 	<div class="layout-sidebar">
 		<div class="sidebar-logo">
-			<a href="/Dashboard_.xhtml"> <p:graphicImage
+			<a href="/Dashboard.xhtml"> <p:graphicImage
 					name="images/smart-banking.png" library="manhattan-layout"
 					width="150" height="100"
 					style="margin-left: 10px; margin-top: 5px; height: 20px; width: 160px;" />
@@ -39,7 +39,7 @@
 					<h:form id="menuform">
 						<pm:menu id="pm_menu">
 							<p:menuitem id="pm_Dashboard" styleClass="pm_Dashboard"
-								value="Dashboard" icon="fa fa-home" outcome="/Dashboard_.xhtml" />
+								value="Dashboard" icon="fa fa-home" outcome="/Dashboard.xhtml" />
 
 							<p:menuitem id="pm_simulacao" styleClass="pm_simulacao"
 								value="Simular Operação" icon="fa fa-calculator"
@@ -57,7 +57,7 @@
 									outcome="/operacoes/AtualizacoesPagamentos.xhtml" />
 
 								<p:menuitem id="pm_investimento" styleClass="pm_investimento"
-									value="Investimento" icon="fa fa-diamond" />
+									value="Investimento" icon="fa fa-diamond" rendered="false" />
 							</p:submenu>
 
 							<p:submenu id="pm_cadastro" label="Cadastro"
@@ -74,15 +74,15 @@
 							<p:submenu id="pm_lancamento" label="Lançamentos"
 								icon="fa fa-retweet">
 								<p:menuitem id="pm_deposito" styleClass="pm_deposito"
-									value="Depósitos" icon="fa fa-money" />
+									value="Depósitos" icon="fa fa-money" outcome="/lancamentos/Depositos.xhtml" />
 
 								<p:menuitem id="pm_despesa" styleClass="pm_despesa"
-									value="Despesas" icon="fa fa-list-ol" />
+									value="Despesas" icon="fa fa-list-ol" outcome="/lancamentos/Despesas.xhtml" />
 							</p:submenu>
 
 							<p:menuitem id="pm_relatorio" styleClass="pm_relatorio"
 								value="Relatórios" icon="fa fa-line-chart"
-								outcome="/Dashboard_.xhtml" />
+								outcome="/Dashboard.xhtml" rendered="false" />
 
 						</pm:menu>
 					</h:form>
