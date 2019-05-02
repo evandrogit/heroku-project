@@ -75,7 +75,7 @@ public class LancamentoDepositoBean implements Serializable {
 		pesquisar();
 
 		PrimeFaces.current().executeScript(
-				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'Concluído!', text: 'Depósito registrado com sucesso!' });");
+				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'ConcluÃ­do!', text: 'DepÃ³sito registrado com sucesso!' });");
 	}
 
 	public void excluir() {
@@ -87,7 +87,7 @@ public class LancamentoDepositoBean implements Serializable {
 		pesquisar();
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'Concluído!', text: 'Despesa excluída com sucesso!' });");
+				"swal({ type: 'success', title: 'ConcluÃ­do', text: 'Despesa excluÃ­da com sucesso!' });");
 
 	}
 

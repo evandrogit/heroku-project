@@ -65,7 +65,7 @@ public class CadastroClienteBean implements Serializable {
 		listarTodos();
 
 		PrimeFaces.current().executeScript(
-				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'Concluído!', text: 'Cliente salvo com sucesso!' });");
+				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Cliente salvo com sucesso!' });");
 	}
 
 	public void excluir() {
@@ -92,7 +92,7 @@ public class CadastroClienteBean implements Serializable {
 		pesquisar();
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'Concluído!', text: 'Cliente excluído com sucesso!' });");
+				"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Cliente excluÃ­do com sucesso!' });");
 
 	}
 

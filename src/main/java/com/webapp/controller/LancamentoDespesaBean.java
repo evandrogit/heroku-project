@@ -70,7 +70,7 @@ public class LancamentoDespesaBean implements Serializable {
 		totalDespesas();
 
 		PrimeFaces.current().executeScript(
-				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'Concluído!', text: 'Despesa registrada com sucesso!' });");
+				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Despesa registrada com sucesso!' });");
 	}
 
 	public void excluir() {
@@ -84,7 +84,7 @@ public class LancamentoDespesaBean implements Serializable {
 		totalDespesas();
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'Concluído!', text: 'Despesa excluída com sucesso!' });");
+				"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Despesa excluÃ­da com sucesso!' });");
 
 	}
 

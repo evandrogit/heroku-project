@@ -55,7 +55,7 @@ public class CadastroInvestidorBean implements Serializable {
 		listarTodos();
 
 		PrimeFaces.current().executeScript(
-				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'Concluído!', text: 'Investidor salvo com sucesso!' });");
+				"PF('downloadLoading').hide(); swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Investidor salvo com sucesso!' });");
 	}
 
 	public void excluir() {
@@ -67,7 +67,7 @@ public class CadastroInvestidorBean implements Serializable {
 		listarTodos();
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'Concluído!', text: 'Investidor excluído com sucesso!' });");
+				"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Investidor excluÃ­do com sucesso!' });");
 
 	}
 

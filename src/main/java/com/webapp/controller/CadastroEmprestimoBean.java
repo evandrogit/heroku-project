@@ -96,7 +96,7 @@ public class CadastroEmprestimoBean implements Serializable {
 			// emprestimo = new Emprestimo();
 
 			PrimeFaces.current().executeScript(
-					"swal({ type: 'success', title: 'Concluído!', text: 'Empréstimo registrado com sucesso!' });");
+					"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'EmprÃ©stimo registrado com sucesso!' });");
 		
 		} else {
 			
@@ -104,12 +104,12 @@ public class CadastroEmprestimoBean implements Serializable {
 
 			if (todasParcelas.size() > 0) {
 				PrimeFaces.current().executeScript(
-						"swal({ type: 'error', title: 'Erro!', text: 'Já existem parcelas lançadas para esse contrato.' });");
+						"swal({ type: 'error', title: 'Erro!', text: 'JÃ¡ existem parcelas lanÃ§adas para esse contrato.' });");
 				
 			} else {
 				emprestimo = emprestimos.save(emprestimo);
 				PrimeFaces.current().executeScript(
-						"swal({ type: 'success', title: 'Concluído!', text: 'Empréstimo atualizado com sucesso!' });");
+						"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'EmprÃ©stimo atualizado com sucesso!' });");
 			}
 			
 		}

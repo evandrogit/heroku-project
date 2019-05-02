@@ -147,7 +147,7 @@ public class PesquisaEmprestimosBean implements Serializable {
 		pesquisar();
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'Concluído!', text: 'Empréstimo excluído com sucesso!' });");
+				"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'EmprÃ©stimo excluÃ­do com sucesso!' });");
 
 	}
 
@@ -229,6 +229,7 @@ public class PesquisaEmprestimosBean implements Serializable {
 		
 		if(emprestimoSelecionado.getTotal().doubleValue() <= 0) {
 			emprestimoSelecionado.setStatusEmprestimo(StatusEmprestimo.FECHADO);
+			emprestimoSelecionado.setJurosFinal(BigDecimal.valueOf(emprestimoSelecionado.getJurosInicial().doubleValue() + emprestimoSelecionado.getJurosFinal().doubleValue()));
 		}
 		
 		emprestimoSelecionado.setTotalTemp(nf.format(emprestimoSelecionado.getTotal().doubleValue()));
@@ -242,7 +243,7 @@ public class PesquisaEmprestimosBean implements Serializable {
 		desconto = "";
 
 		PrimeFaces.current().executeScript(
-				"swal({ type: 'success', title: 'Concluído!', text: 'Pagamento registrado com sucesso!' });"
+				"swal({ type: 'success', title: 'ConcluÃ­do!', text: 'Pagamento registrado com sucesso!' });"
 				+ "PF('wizard').loadStep(PF('wizard').cfg.steps[0], true);");
 	}
 

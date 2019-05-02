@@ -4,16 +4,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
 
 import com.webapp.model.Investidor;
 import com.webapp.repository.Investidores;
+import com.webapp.util.cdi.CDIServiceLocator;
 
 @FacesConverter(forClass = Investidor.class)
 public class InvestidorConverter implements Converter {
 
-	@Inject
-	private Investidores investidores;
+	private Investidores investidores = CDIServiceLocator.getBean(Investidores.class);;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
