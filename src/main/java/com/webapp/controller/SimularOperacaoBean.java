@@ -43,6 +43,7 @@ public class SimularOperacaoBean implements Serializable {
 
 	private List<Parcela> parcelas = new ArrayList<Parcela>();
 	
+	@Inject
 	private Cliente cliente;
 	
 	public void inicializar() {
