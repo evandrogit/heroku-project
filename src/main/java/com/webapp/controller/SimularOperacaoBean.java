@@ -15,8 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.webapp.model.Cliente;
 import com.webapp.model.Parcela;
 import com.webapp.model.Simulacao;
+import com.webapp.util.jsf.FacesUtil;
 
 @Named
 @SessionScoped
@@ -40,6 +42,14 @@ public class SimularOperacaoBean implements Serializable {
 	private Parcela parcela;
 
 	private List<Parcela> parcelas = new ArrayList<Parcela>();
+	
+	private Cliente cliente;
+	
+	public void inicializar() {
+		if (FacesUtil.isNotPostback()) {
+			cliente = new Cliente();
+		}
+	}
 
 	public void calcular() {
 
@@ -181,6 +191,10 @@ public class SimularOperacaoBean implements Serializable {
 					parcelas.get(i).setParcela((i + 1) + "/" + parcelas.size());
 				}
 			}
+			
+			simulacao.setNome(cliente.getNome());
+			simulacao.setCpf(cliente.getCpf());
+			simulacao.setContato(cliente.getContato());
 
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/simulacao/SimularOperacao.xhtml");
@@ -200,11 +214,16 @@ public class SimularOperacaoBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void definirCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public void novaSimulacao() {
 		try {
 			result = false;
 			simulacao = new Simulacao();
+			cliente = new Cliente();
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("/simulacao/SimularOperacao.xhtml");
 
@@ -239,5 +258,13 @@ public class SimularOperacaoBean implements Serializable {
 
 	public List<Parcela> getParcelas() {
 		return parcelas;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }

@@ -187,6 +187,9 @@
 	body #cliente-dialog .ui-datatable .ui-datatable-data>tr td {
 		padding: 0px;
 	}
+	.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield {
+		width: 75%;
+	}
 }
 
 @media ( min-width :460px) {
@@ -338,7 +341,7 @@
 						</p:column>
 
 						<p:column headerText="Total">
-							<h:outputText value="R$ #{emprestimo.totalTemp}"/>
+							<h:outputText value="R$ #{emprestimo.totalTemp}" />
 						</p:column>
 
 						<p:column headerText="Vencimento">
@@ -549,7 +552,8 @@
 						</p:panel>
 					</p:tab>
 
-					<p:tab title="Pendente" rendered="#{not(pesquisaEmprestimosBean.emprestimoSelecionado.total le 0)}">
+					<p:tab title="Pendente"
+						rendered="#{not(pesquisaEmprestimosBean.emprestimoSelecionado.total le 0)}">
 						<p:panel>
 							<p:panelGrid columns="2" layout="grid" style="margin-bottom: 5px"
 								styleClass="panelgrid-noborder disabled disabled apply-result"
@@ -611,7 +615,7 @@
 								columnClasses="ui-grid-col-2, ui-grid-col-10">
 
 								<p:outputLabel value="Vencimento" for="vencimento" />
-								<p:calendar id="vencimento"
+								<p:calendar id="vencimento" style="width: 75% !important;"
 									value="#{pesquisaEmprestimosBean.emprestimoSelecionado.proximoVencimento}"
 									showOn="button" locale="pt" pattern="dd/MM/yyyy"
 									disabled="true" />
